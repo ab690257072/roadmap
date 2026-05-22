@@ -195,6 +195,22 @@ button { font-family: inherit; }
   letter-spacing: .2px;
   font-family: 'Noto Sans SC', 'Comic Sans MS', 'Bradley Hand', cursive, sans-serif;
 }
+.board-heading {
+  fill: #2f2a23;
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: .1px;
+}
+.card-title {
+  fill: #2f2a23;
+  font-size: 17px;
+  font-weight: 850;
+}
+.mini-text {
+  fill: #6b6258;
+  font-size: 12px;
+  font-weight: 750;
+}
 .chalk-title {
   fill: #2f2a23;
   font-size: 21px;
@@ -306,6 +322,109 @@ button { font-family: inherit; }
 .mini-browser rect:not(:first-child) {
   fill: #cdeec7;
   stroke: none;
+}
+.internet-card {
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+.internet-card rect:first-child {
+  fill: #fffaf1;
+  stroke: #5f7f89;
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 10px 16px rgba(75,55,31,.11));
+}
+.internet-card.address rect:first-child {
+  fill: #fff4d6;
+  stroke: #c26a28;
+}
+.internet-card.dns rect:first-child {
+  fill: #f8fbff;
+  stroke: #6d8fa0;
+  stroke-dasharray: 2 3;
+}
+.internet-card.server rect:first-child {
+  fill: #eef7ec;
+  stroke: #6f9869;
+}
+.internet-card.browser rect:first-child {
+  fill: #f3f0ff;
+  stroke: #8776b5;
+}
+.internet-card.active rect:first-child {
+  stroke: #d26b21;
+  stroke-width: 3.4;
+  filter: drop-shadow(0 12px 20px rgba(210,107,33,.2));
+}
+.address-bar {
+  fill: #ffffff;
+  stroke: #e1caa1;
+  stroke-width: 1.6;
+}
+.book-lines {
+  fill: none;
+  stroke: #8aa5ad;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.server rect:not(:first-child) {
+  fill: #ffffff;
+  stroke: #a9c9a3;
+  stroke-width: 1.4;
+}
+.server .mini-text {
+  fill: #53645a;
+  font-size: 12px;
+}
+.server circle {
+  fill: #74a06a;
+}
+.browser circle {
+  fill: #b7aadf;
+}
+.browser rect:not(:first-child) {
+  fill: #ffffff;
+  stroke: #cabfeb;
+  stroke-width: 1.3;
+}
+.story-arrow {
+  fill: none;
+  stroke: #4d7480;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 6 8;
+  animation: diagramFlow 2.8s linear infinite;
+}
+.story-arrow.active {
+  stroke: #d26b21;
+  stroke-width: 4;
+}
+.packet-road {
+  cursor: pointer;
+}
+.packet-road path {
+  fill: none;
+  stroke: #9b8b77;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 3 9;
+}
+.packet-road rect {
+  fill: #dff1ff;
+  stroke: #4c7f99;
+  stroke-width: 2;
+  filter: drop-shadow(0 5px 8px rgba(76,127,153,.14));
+}
+.packet-road .card-title {
+  font-size: 16px;
+}
+.packet-road.active path {
+  stroke: #d26b21;
+  stroke-width: 4;
+}
+.packet-road.active rect {
+  fill: #fff0c2;
+  stroke: #d26b21;
 }
 .foundation-concepts {
   display: grid;
