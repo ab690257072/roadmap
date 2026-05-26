@@ -1,0 +1,202 @@
+export type ExcalidrawElement = Record<string, unknown>;
+
+export function excalidrawText(id: string, x: number, y: number, text: string, fontSize = 22, width = 240): ExcalidrawElement {
+  const lineCount = text.split('\n').length;
+  return {
+    id,
+    type: 'text',
+    x,
+    y,
+    width,
+    height: Math.ceil(fontSize * 1.25 * lineCount),
+    angle: 0,
+    strokeColor: '#1f2937',
+    backgroundColor: 'transparent',
+    fillStyle: 'solid',
+    strokeWidth: 1,
+    strokeStyle: 'solid',
+    roughness: 1,
+    opacity: 100,
+    groupIds: [],
+    frameId: null,
+    roundness: null,
+    seed: id.length * 97,
+    version: 1,
+    versionNonce: id.length * 101,
+    isDeleted: false,
+    boundElements: null,
+    updated: 1,
+    link: null,
+    locked: false,
+    text,
+    fontSize,
+    fontFamily: 5,
+    textAlign: 'center',
+    verticalAlign: 'top',
+    containerId: null,
+    originalText: text,
+    lineHeight: 1.25,
+  };
+}
+
+export function excalidrawBox(id: string, x: number, y: number, width: number, height: number, backgroundColor: string): ExcalidrawElement {
+  return {
+    id,
+    type: 'rectangle',
+    x,
+    y,
+    width,
+    height,
+    angle: 0,
+    strokeColor: '#334155',
+    backgroundColor,
+    fillStyle: 'solid',
+    strokeWidth: 2,
+    strokeStyle: 'solid',
+    roughness: 1,
+    opacity: 100,
+    groupIds: [],
+    frameId: null,
+    roundness: { type: 3 },
+    seed: id.length * 89,
+    version: 1,
+    versionNonce: id.length * 103,
+    isDeleted: false,
+    boundElements: null,
+    updated: 1,
+    link: null,
+    locked: false,
+  };
+}
+
+export function excalidrawArrow(id: string, x: number, y: number, width: number, height: number, color = '#1f2937'): ExcalidrawElement {
+  return {
+    id,
+    type: 'arrow',
+    x,
+    y,
+    width,
+    height,
+    angle: 0,
+    strokeColor: color,
+    backgroundColor: 'transparent',
+    fillStyle: 'solid',
+    strokeWidth: 2,
+    strokeStyle: 'solid',
+    roughness: 1,
+    opacity: 100,
+    groupIds: [],
+    frameId: null,
+    roundness: { type: 2 },
+    seed: id.length * 83,
+    version: 1,
+    versionNonce: id.length * 107,
+    isDeleted: false,
+    boundElements: null,
+    updated: 1,
+    link: null,
+    locked: false,
+    points: [[0, 0], [width, height]],
+    lastCommittedPoint: null,
+    startBinding: null,
+    endBinding: null,
+    startArrowhead: null,
+    endArrowhead: 'arrow',
+  };
+}
+
+export function excalidrawLabeledBox(
+  id: string,
+  x: number,
+  y: number,
+  text: string,
+  fontSize = 18,
+  backgroundColor = '#e7f5ff',
+): ExcalidrawElement[] {
+  const lines = text.split('\n');
+  const lineCount = lines.length;
+  const maxChars = Math.max(...lines.map(l => l.length));
+  const estimatedTextWidth = Math.max(maxChars * fontSize * 0.65 + 16, 60);
+  const textHeight = Math.ceil(fontSize * 1.25 * lineCount);
+  const boxId = `${id}-box`;
+  const textId = `${id}-text`;
+
+  return [
+    {
+      id: textId,
+      type: 'text',
+      x: x + 10,
+      y: y + 8,
+      width: estimatedTextWidth,
+      height: textHeight,
+      angle: 0,
+      strokeColor: '#1f2937',
+      backgroundColor: 'transparent',
+      fillStyle: 'solid',
+      strokeWidth: 1,
+      strokeStyle: 'solid',
+      roughness: 1,
+      opacity: 100,
+      groupIds: [],
+      frameId: null,
+      roundness: null,
+      seed: textId.length * 97,
+      version: 1,
+      versionNonce: textId.length * 101,
+      isDeleted: false,
+      boundElements: null,
+      updated: 1,
+      link: null,
+      locked: false,
+      text,
+      fontSize,
+      fontFamily: 5,
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      containerId: boxId,
+      originalText: text,
+      lineHeight: 1.25,
+    },
+    {
+      id: boxId,
+      type: 'rectangle',
+      x,
+      y,
+      width: estimatedTextWidth + 24,
+      height: textHeight + 18,
+      angle: 0,
+      strokeColor: '#334155',
+      backgroundColor,
+      fillStyle: 'solid',
+      strokeWidth: 2,
+      strokeStyle: 'solid',
+      roughness: 1,
+      opacity: 100,
+      groupIds: [],
+      frameId: null,
+      roundness: { type: 3 },
+      seed: boxId.length * 89,
+      version: 1,
+      versionNonce: boxId.length * 103,
+      isDeleted: false,
+      boundElements: [{ id: textId, type: 'text' }],
+      updated: 1,
+      link: null,
+      locked: false,
+    },
+  ];
+}
+
+export function excalidrawScene(elements: ExcalidrawElement[]) {
+  return JSON.stringify({
+    type: 'excalidraw',
+    version: 2,
+    source: 'https://excalidraw.com',
+    elements,
+    appState: {
+      viewBackgroundColor: '#ffffff',
+      gridSize: 20,
+    },
+    files: {},
+  });
+}

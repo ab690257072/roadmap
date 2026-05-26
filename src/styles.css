@@ -39,22 +39,26 @@ button { font-family: inherit; }
   overflow: auto;
   cursor: grab;
   padding: 24px;
+  overscroll-behavior: contain;
   background:
     linear-gradient(#e9eef5 1px, transparent 1px) 0 0 / 32px 32px,
     linear-gradient(90deg, #e9eef5 1px, transparent 1px) 0 0 / 32px 32px,
     #f8fafc;
 }
-.map-layer {
+.map-scroll-sizer {
   position: relative;
-  width: 2170px;
-  height: 1830px;
   flex: 0 0 auto;
   margin: 0 auto;
 }
-.route-svg { position: absolute; inset: 0; width: 2170px; height: 1830px; pointer-events: none; overflow: visible; }
-.route-bg { fill: none; stroke: #dbeafe; stroke-width: 14; stroke-linecap: round; }
-.route-main { fill: none; stroke: url(#routeGradient); stroke-width: 7; stroke-linecap: round; }
-.route-dash { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 8 14; animation: dash 1.4s linear infinite; opacity: .65; }
+.map-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.route-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.route-bg { fill: none; stroke: #dbeafe; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+.route-main { fill: none; stroke: url(#routeGradient); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.route-dash { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 14; animation: dash 1.4s linear infinite; opacity: .65; }
 @keyframes dash { to { stroke-dashoffset: -44; } }
 .stage-card {
   position: absolute;
@@ -86,16 +90,892 @@ button { font-family: inherit; }
   box-shadow: 0 4px 10px rgba(22,119,255,.22);
 }
 .stage-title { min-width: 0; }
-.node-grid { padding: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; height: 194px; overflow: auto; }
+.roadmap-select { min-width: 220px; }
+.roadmap-graph {
+  margin-bottom: 14px;
+  padding: 20px 24px;
+  border: 1px solid #e4e7ec;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fff 0%, #f8fbff 100%);
+  box-shadow: 0 8px 24px rgba(29,41,57,.06);
+}
+.roadmap-graph-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.roadmap-view-toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.roadmap-relation-wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.relation-map-v2 {
+  position: relative;
+  min-height: 520px;
+  border: 1px solid #e4e7ec;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(22,119,255,.16), transparent 0 118px, transparent 119px),
+    radial-gradient(circle at 18% 22%, rgba(19,194,194,.10), transparent 28%),
+    radial-gradient(circle at 82% 76%, rgba(250,140,22,.10), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  overflow: hidden;
+}
+.relation-orbit {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  border: 1px dashed rgba(22,119,255,.16);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.relation-orbit-one { width: 310px; height: 210px; }
+.relation-orbit-two { width: 650px; height: 390px; }
+.relation-core {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 174px;
+  height: 174px;
+  border: 3px solid #1677ff;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #e6f4ff 0%, #fff 55%, #f0f8ff 100%);
+  box-shadow: 0 22px 50px rgba(22,119,255,.20);
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
+  transition: all .18s ease;
+  z-index: 3;
+}
+.relation-core:hover {
+  transform: translate(-50%, -50%) scale(1.03);
+  box-shadow: 0 26px 60px rgba(22,119,255,.24);
+}
+.relation-core.active { background: radial-gradient(circle at 30% 20%, #bae0ff 0%, #e6f4ff 60%, #fff 100%); }
+.relation-core-kicker {
+  font-size: 10px;
+  font-weight: 800;
+  color: #1677ff;
+  letter-spacing: .08em;
+}
+.relation-core-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1f2937;
+  line-height: 1.2;
+}
+.relation-core-desc {
+  font-size: 12px;
+  color: #667085;
+  line-height: 1.45;
+  max-width: 124px;
+}
+.relation-domain {
+  position: absolute;
+  z-index: 2;
+}
+.relation-domain-foundation { left: 56px; top: 72px; }
+.relation-domain-service { right: 56px; top: 72px; }
+.relation-domain-data { left: 46px; bottom: 58px; width: 330px; }
+.relation-domain-delivery { right: 46px; bottom: 58px; width: 330px; }
+.relation-domain-architecture { left: 50%; top: 26px; transform: translateX(-50%); width: 250px; }
+.relation-domain-card {
+  padding: 14px 16px;
+  border: 1px solid #e4e7ec;
+  border-radius: 18px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 10px 26px rgba(29,41,57,.08);
+  backdrop-filter: blur(10px);
+}
+.relation-domain-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.relation-domain-head strong {
+  font-size: 14px;
+  color: #1f2937;
+}
+.relation-domain-head span {
+  font-size: 11px;
+  color: #667085;
+  line-height: 1.4;
+}
+.relation-domain-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.relation-domain-nodes.sequence {
+  flex-wrap: nowrap;
+}
+.relation-domain-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.relation-domain-arrow {
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 700;
+  user-select: none;
+}
+.relation-domain-chip {
+  max-width: 140px;
+  padding: 6px 10px;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  background: #f8fbff;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: normal;
+  line-height: 1.25;
+  text-align: left;
+  transition: all .15s ease;
+}
+.relation-domain-chip:hover {
+  border-color: #91caff;
+  color: #1677ff;
+  box-shadow: 0 4px 10px rgba(22,119,255,.1);
+}
+.relation-domain-chip.active {
+  border-color: #1677ff;
+  background: #e6f4ff;
+  color: #1677ff;
+}
+.roadmap-relation-tip {
+  margin: 14px 0 0;
+  text-align: center;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.excalidraw-embed-card {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #e4e7ec;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(29,41,57,.06);
+}
+.excalidraw-svg-host {
+  width: 100%;
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  color: #667085;
+}
+.excalidraw-exported-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.git-learning-page .ant-card {
+  border-radius: 18px;
+}
+.git-lesson-hero {
+  border-color: #bfdbfe;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(22, 119, 255, .1), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+.git-lesson-hero .ant-typography {
+  margin-top: 8px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+.git-metaphor-card {
+  border-color: #fde68a;
+  background: #fffdf5;
+}
+.git-metaphor-card .ant-typography,
+.git-teacher-card .ant-typography {
+  margin-bottom: 0;
+  color: #344054;
+  font-size: 15px;
+  line-height: 1.9;
+}
+.git-excalidraw-card {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e7dccb;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(22, 119, 255, .08), transparent 24%),
+    radial-gradient(circle at 86% 18%, rgba(250, 140, 22, .12), transparent 22%),
+    linear-gradient(135deg, #fffaf1 0%, #f8fbff 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.82), 0 16px 36px rgba(75,55,31,.11);
+  cursor: default;
+}
+.git-excalidraw-card .excalidraw-svg-host {
+  min-height: 300px;
+}
+.git-excalidraw-card .excalidraw-exported-svg {
+  max-height: 380px;
+}
+.git-lesson-steps {
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+}
+.git-teacher-card {
+  border-color: #d6e4ff;
+  box-shadow: 0 8px 20px rgba(29,41,57,.06);
+}
+.git-teacher-card .ant-card-head-title {
+  font-size: 17px;
+  font-weight: 850;
+}
+.relation-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 1040px;
+  min-height: 610px;
+  margin: 0 auto;
+  border: 2px solid #e2e8f0;
+  border-radius: 22px;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(148,163,184,.10) 31px, rgba(148,163,184,.10) 32px),
+    repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(148,163,184,.10) 31px, rgba(148,163,184,.10) 32px),
+    linear-gradient(180deg, #fffef8 0%, #f8fbff 100%);
+  overflow: hidden;
+}
+.relation-diagram-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.relation-line {
+  fill: none;
+  stroke: #64748b;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.relation-line.main {
+  stroke: #1677ff;
+  stroke-width: 3;
+}
+.relation-line.dashed {
+  stroke-dasharray: 8 8;
+}
+.relation-line-label {
+  fill: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #fffef8;
+  stroke-width: 5px;
+}
+.relation-diagram-node,
+.relation-static {
+  position: absolute;
+  z-index: 2;
+  min-width: 120px;
+  padding: 10px 12px;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  background: #fff;
+  color: #1f2937;
+  box-shadow: 3px 4px 0 rgba(51,65,85,.10);
+  text-align: center;
+}
+.relation-diagram-node {
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.relation-diagram-node:hover {
+  transform: translateY(-2px);
+  border-color: #1677ff;
+  box-shadow: 4px 6px 0 rgba(22,119,255,.14);
+}
+.relation-diagram-node.active {
+  border-color: #1677ff;
+  background: #e6f4ff;
+  color: #1677ff;
+}
+.relation-diagram-node strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.25;
+}
+.relation-diagram-node span {
+  display: block;
+  margin-top: 4px;
+  color: #667085;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.relation-static {
+  font-size: 14px;
+  font-weight: 800;
+  pointer-events: none;
+}
+.relation-client {
+  left: 40px;
+  top: 238px;
+  background: #e7f5ff;
+}
+.relation-api {
+  left: 240px;
+  top: 232px;
+  background: #d0ebff;
+}
+.relation-backend {
+  left: 460px;
+  top: 202px;
+  width: 170px;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-width: 3px;
+  border-color: #1864ab;
+  background: #a5d8ff;
+}
+.relation-backend strong {
+  font-size: 18px;
+}
+.relation-go {
+  left: 472px;
+  top: 86px;
+  background: #d3f9d8;
+  border-color: #2b8a3e;
+}
+.relation-git {
+  left: 230px;
+  top: 82px;
+  background: #e5dbff;
+  border-color: #5f3dc4;
+}
+.relation-output {
+  right: 30px;
+  top: 238px;
+  background: #e7f5ff;
+}
+.relation-system {
+  right: 54px;
+  bottom: 78px;
+  width: 180px;
+  background: #ffdeeb;
+  border-color: #c2255c;
+}
+.relation-data-cluster,
+.relation-runtime-cluster {
+  position: absolute;
+  z-index: 2;
+  border: 2px solid #2f9e44;
+  border-radius: 20px;
+  background: rgba(235,251,238,.92);
+  box-shadow: 3px 4px 0 rgba(47,158,68,.10);
+}
+.relation-data-cluster {
+  left: 250px;
+  bottom: 54px;
+  width: 430px;
+  padding: 16px;
+}
+.relation-runtime-cluster {
+  right: 36px;
+  top: 156px;
+  width: 230px;
+  padding: 16px;
+  border-color: #e67700;
+  background: rgba(255,243,191,.92);
+  box-shadow: 3px 4px 0 rgba(230,119,0,.10);
+}
+.relation-cluster-title {
+  margin-bottom: 10px;
+  color: #1f2937;
+  font-size: 15px;
+  font-weight: 900;
+  text-align: center;
+}
+.relation-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.relation-runtime-stack {
+  display: grid;
+  gap: 9px;
+}
+.relation-data-cluster .relation-diagram-node,
+.relation-runtime-cluster .relation-diagram-node {
+  position: static;
+  width: 100%;
+  min-width: 0;
+  box-shadow: none;
+}
+@media (max-width: 860px) {
+  .relation-diagram {
+    min-height: auto;
+    padding: 14px;
+    display: grid;
+    gap: 12px;
+  }
+  .relation-diagram-lines {
+    display: none;
+  }
+  .relation-diagram-node,
+  .relation-static,
+  .relation-data-cluster,
+  .relation-runtime-cluster {
+    position: static;
+    width: auto;
+    min-width: 0;
+  }
+  .relation-client,
+  .relation-api,
+  .relation-backend,
+  .relation-go,
+  .relation-git,
+  .relation-output,
+  .relation-system {
+    left: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+  }
+}
+.relation-map {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid #e4e7ec;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff 0%, #f8fbff 100%);
+}
+.relation-explain {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid #dbeafe;
+  border-radius: 14px;
+  background: #f0f8ff;
+}
+.relation-explain strong {
+  font-size: 15px;
+  color: #1f2937;
+}
+.relation-explain span {
+  font-size: 12px;
+  color: #667085;
+  line-height: 1.5;
+}
+.relation-service-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.relation-request,
+.relation-response {
+  min-width: 132px;
+  padding: 12px 14px;
+  border: 1px solid #e4e7ec;
+  border-radius: 14px;
+  background: #fff;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+.relation-big-arrow {
+  color: #1677ff;
+  font-size: 20px;
+  font-weight: 800;
+}
+.relation-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.relation-group-box {
+  padding: 12px 14px;
+  border: 1px solid #e4e7ec;
+  border-radius: 14px;
+  background: #fff;
+  min-height: 132px;
+}
+.relation-group-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.relation-group-verb {
+  align-self: flex-start;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fff7e6;
+  color: #b45309;
+  font-size: 10px;
+  font-weight: 800;
+}
+.relation-group-head strong {
+  font-size: 14px;
+  color: #1f2937;
+}
+.relation-group-head span {
+  font-size: 12px;
+  color: #667085;
+  line-height: 1.45;
+}
+.relation-group-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.relation-group-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.relation-chip {
+  padding: 7px 12px;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  background: #f8fbff;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s ease;
+}
+.relation-chip:hover {
+  border-color: #91caff;
+  color: #1677ff;
+}
+.relation-chip.active {
+  border-color: #1677ff;
+  background: #e6f4ff;
+  color: #1677ff;
+}
+.relation-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 170px;
+  padding: 16px 18px;
+  border: 3px solid #1677ff;
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(22,119,255,.14);
+  transition: all .15s ease;
+}
+.relation-hub:hover { background: #f0f8ff; }
+.relation-hub.active { background: #e6f4ff; }
+.relation-hub-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #1677ff;
+  letter-spacing: .06em;
+}
+.relation-hub strong {
+  font-size: 18px;
+  color: #1f2937;
+  line-height: 1.2;
+}
+.relation-hub-sub {
+  font-size: 11px;
+  color: #667085;
+  line-height: 1.4;
+  max-width: 140px;
+}
+@media (max-width: 860px) {
+  .relation-service-row {
+    flex-direction: column;
+  }
+  .relation-big-arrow {
+    transform: rotate(90deg);
+  }
+  .relation-groups {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 860px) {
+  .relation-map-v2 {
+    min-height: auto;
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+  }
+  .relation-orbit { display: none; }
+  .relation-core,
+  .relation-domain {
+    position: static;
+    transform: none;
+    width: auto;
+  }
+  .relation-core {
+    width: auto;
+    height: auto;
+    min-height: 110px;
+    border-radius: 18px;
+  }
+  .relation-core:hover { transform: none; }
+  .relation-domain-nodes.sequence { flex-wrap: wrap; }
+}
+.diagram-badge { fill: #fff7e6; stroke: #fa8c16; stroke-width: 2; }
+.diagram-badge-text { fill: #d46b08; font-size: 12px; font-weight: 800; }
+.lesson-board .chalk-box { cursor: pointer; }
+.roadmap-graph-title strong {
+  display: block;
+  font-size: 16px;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+.roadmap-graph-title p {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.65;
+  max-width: 720px;
+}
+.roadmap-graph-title p strong {
+  display: inline;
+  font-size: inherit;
+  color: #1677ff;
+}
+.roadmap-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.roadmap-flow-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.roadmap-layer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid #edf0f5;
+  border-radius: 16px;
+  background: #fff;
+}
+.roadmap-layer-side {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.roadmap-layer-step {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #1677ff;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(22,119,255,.22);
+}
+.roadmap-layer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.roadmap-layer-meta strong {
+  font-size: 14px;
+  color: #1f2937;
+}
+.roadmap-layer-meta span {
+  font-size: 12px;
+  color: #667085;
+  line-height: 1.5;
+}
+.roadmap-layer-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: flex-start;
+  justify-content: center;
+}
+.roadmap-node-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.roadmap-group-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #98a2b3;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.roadmap-node-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.roadmap-node-row.multi {
+  justify-content: center;
+}
+.roadmap-node-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.roadmap-inline-arrow {
+  color: #94a3b8;
+  font-size: 18px;
+  font-weight: 700;
+  user-select: none;
+}
+.roadmap-node-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 128px;
+  padding: 10px 14px;
+  border: 1.5px solid #e4e7ec;
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: all .18s ease;
+}
+.roadmap-node-card:hover {
+  border-color: #91caff;
+  box-shadow: 0 6px 16px rgba(22,119,255,.12);
+  transform: translateY(-1px);
+}
+.roadmap-node-card.active {
+  border-color: #1677ff;
+  background: linear-gradient(180deg, #e6f4ff 0%, #f0f8ff 100%);
+  box-shadow: 0 8px 20px rgba(22,119,255,.18);
+}
+.roadmap-node-card.main {
+  border-color: #91caff;
+  background: linear-gradient(180deg, #f0f8ff 0%, #fff 100%);
+}
+.roadmap-node-card.main.active {
+  border-color: #1677ff;
+  background: linear-gradient(180deg, #dbeafe 0%, #e6f4ff 100%);
+}
+.roadmap-node-short {
+  font-size: 10px;
+  font-weight: 700;
+  color: #1677ff;
+  letter-spacing: .03em;
+}
+.roadmap-node-title {
+  font-size: 13px;
+  font-weight: 750;
+  color: #1f2937;
+  line-height: 1.3;
+}
+.roadmap-node-role {
+  font-size: 11px;
+  color: #667085;
+}
+.roadmap-flow-arrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 0;
+  color: #94a3b8;
+}
+.roadmap-flow-arrow-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+}
+.roadmap-flow-arrow-label {
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .roadmap-layer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .roadmap-layer-body {
+    justify-content: flex-start;
+  }
+  .roadmap-node-card {
+    min-width: 112px;
+  }
+}
+.generic-board .generic-step-caption {
+  font-size: 11px;
+  font-weight: 700;
+}
+.node-grid {
+  height: 186px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-content: start;
+  scrollbar-gutter: stable;
+}
 .node-chip {
-  min-height: 54px;
+  min-height: 58px;
+  height: auto;
   border: 1px solid #edf0f5;
   border-radius: 10px;
   background: #fff;
-  padding: 8px;
+  padding: 8px 8px 7px;
   text-align: left;
   cursor: pointer;
   transition: all .2s cubic-bezier(.645,.045,.355,1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .node-chip:hover { transform: translateY(-1px); border-color: #91caff; box-shadow: 0 4px 12px rgba(22,119,255,.12); }
 .node-chip.topic { background: #fff7e6; border-color: #ffd591; }
@@ -103,8 +983,8 @@ button { font-family: inherit; }
 .node-chip.label, .node-chip.paragraph { background: #f8fafc; border-style: dashed; }
 .node-chip.done { background: #f6ffed; border-color: #b7eb8f; }
 .node-chip.done .node-zh::after { content: ' ✓'; color: #52c41a; }
-.node-zh { display: block; font-weight: 650; font-size: 12px; line-height: 1.25; color: #1f2937; }
-.node-en { display: block; margin-top: 3px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9px; line-height: 1.25; color: #98a2b3; word-break: break-word; }
+.node-zh { font-weight: 650; font-size: 12px; line-height: 1.3; color: #1f2937; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.node-en { margin-top: 3px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9px; line-height: 1.3; color: #98a2b3; word-break: break-word; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .tutorial-illustration {
   background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
   border: 1px solid #bae0ff;
@@ -187,6 +1067,142 @@ button { font-family: inherit; }
   width: 100%;
   height: auto;
   min-height: 280px;
+}
+.git-teach-board {
+  background:
+    radial-gradient(circle at 12% 22%, rgba(22, 119, 255, .12), transparent 24%),
+    radial-gradient(circle at 82% 20%, rgba(82, 196, 26, .12), transparent 22%),
+    linear-gradient(135deg, #f8fbff 0%, #fffaf0 100%);
+}
+.git-teach-desc,
+.git-teach-note {
+  fill: #6b6258;
+  font-size: 14px;
+  font-weight: 720;
+}
+.git-teach-note.active {
+  fill: #d26b21;
+  font-weight: 880;
+}
+.git-teach-arrow {
+  fill: none;
+  stroke: #34495e;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .56;
+}
+.git-teach-arrow.active {
+  stroke: #d26b21;
+  stroke-width: 4;
+  opacity: 1;
+}
+.git-teach-arrow-head {
+  fill: none;
+  stroke: #34495e;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.git-teach-box,
+.git-teach-command,
+.git-teach-folder,
+.git-teach-id-card,
+.git-teach-commit,
+.git-teach-chaos,
+.git-teach-history,
+.git-teach-vcs-card {
+  cursor: pointer;
+  transition: opacity .18s ease;
+}
+.git-teach-box rect,
+.git-teach-folder rect,
+.git-teach-command rect,
+.git-teach-id-card rect,
+.git-teach-commit rect,
+.git-teach-chaos rect,
+.git-teach-history rect,
+.git-teach-vcs-card > rect {
+  fill: #ffffff;
+  stroke: #7da5b4;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 8px 14px rgba(48, 39, 24, .12));
+}
+.git-teach-box.blue rect,
+.git-teach-box.blue > rect {
+  stroke: #1677ff;
+}
+.git-teach-box.cyan rect,
+.git-teach-box.cyan > rect {
+  stroke: #13c2c2;
+}
+.git-teach-box.green rect,
+.git-teach-box.green > rect {
+  stroke: #52c41a;
+}
+.git-teach-box.orange rect,
+.git-teach-box.orange > rect {
+  stroke: #fa8c16;
+}
+.git-teach-box:not(.active),
+.git-teach-command:not(.active),
+.git-teach-folder:not(.active),
+.git-teach-id-card:not(.active),
+.git-teach-commit:not(.active),
+.git-teach-chaos:not(.active),
+.git-teach-history:not(.active),
+.git-teach-vcs-card:not(.active) {
+  opacity: .75;
+}
+.git-teach-box.active rect,
+.git-teach-command.active rect,
+.git-teach-folder.active rect,
+.git-teach-id-card.active rect,
+.git-teach-commit.active rect,
+.git-teach-chaos.active rect,
+.git-teach-history.active rect,
+.git-teach-vcs-card.active > rect {
+  fill: #fff8df;
+  stroke: #d26b21;
+  stroke-width: 3.4;
+}
+.git-teach-title {
+  fill: #2f2a23;
+  font-size: 17px;
+  font-weight: 880;
+}
+.git-teach-sub {
+  fill: #655c50;
+  font-size: 13px;
+  font-weight: 760;
+}
+.git-teach-command text {
+  fill: #2f2a23;
+  font-size: 22px;
+  font-weight: 900;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+.git-teach-timeline,
+.git-teach-thin-line {
+  fill: none;
+  stroke: #7b8794;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.git-teach-thin-line {
+  stroke-width: 2;
+  stroke-dasharray: 5 7;
+}
+.git-teach-dot {
+  fill: #ffffff;
+  stroke: #1677ff;
+  stroke-width: 3;
+}
+.git-teach-cmd {
+  fill: #8a5a10;
+  font-size: 13px;
+  font-weight: 850;
+  font-family: 'SFMono-Regular', Consolas, monospace;
 }
 .chalk-label {
   fill: #2f2a23;

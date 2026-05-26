@@ -1,0 +1,4057 @@
+[
+  {
+    "id": "qLeEEwBvlGt1fP5Qcreah",
+    "label": "Basic Commands",
+    "heading": "Basic Commands：把文件路径当成地图来学",
+    "subheading": "Basic Commands 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Basic Commands 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Basic Commands = 用 pwd / ls / cd / cat 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Basic Commands 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Basic Commands 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `pwd / ls / cd / cat` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "pwd / ls / cd / cat",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "pwd / ls / cd / cat",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "q-Ky0ietZGpyUcBQfh-BJ",
+    "label": "Moving Files / Directories",
+    "heading": "Moving Files / Directories：把文件路径当成地图来学",
+    "subheading": "Moving Files / Directories 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Moving Files / Directories 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Moving Files / Directories = 用 mv old new 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Moving Files / Directories 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Moving Files / Directories 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `mv old new` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "mv old new",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "move",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "mv old new",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "y7KjVfSI6CAduyHd4mBFT",
+    "label": "Navigation Basics",
+    "heading": "Navigation Basics：把文件路径当成地图来学",
+    "subheading": "Navigation Basics 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Navigation Basics 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Navigation Basics = 用 pwd -> cd -> ls 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Navigation Basics 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Navigation Basics 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `pwd -> cd -> ls` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "pwd -> cd -> ls",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "tree",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "pwd -> cd -> ls",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "9oo2fxTM2_p0VYPBroqxa",
+    "label": "Creating & Deleting Files / Dirs",
+    "heading": "Creating & Deleting Files / Dirs：把文件路径当成地图来学",
+    "subheading": "Creating & Deleting Files / Dirs 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Creating & Deleting Files / Dirs 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Creating & Deleting Files / Dirs = 用 touch / mkdir / rm -r 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Creating & Deleting Files / Dirs 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Creating & Deleting Files / Dirs 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `touch / mkdir / rm -r` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "touch / mkdir / rm -r",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "path",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "touch / mkdir / rm -r",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "XiZz7EFIey1XKS292GN4t",
+    "label": "Vim",
+    "heading": "Vim：把配置文件安全改完",
+    "subheading": "Vim 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Vim 相关问题。这里要学会把它放回真实机器：文本文件、命令输入、输出结果和风险边界。",
+    "core": "Vim = 用 i -> edit -> Esc -> :wq 围绕「文本文件」完成「进入编辑器、保存、退出」，目标是能安全改配置并退出。",
+    "metaphor": "它像改电箱标签：不是写字难，而是改完要知道怎么保存、怎么退出、怎么回滚。",
+    "mistake": "不要把 Vim 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Vim 容易和相邻命令混在一起：它的边界是「进入编辑器、保存、退出」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `i -> edit -> Esc -> :wq` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "i -> edit -> Esc -> :wq",
+    "subject": "文本文件",
+    "action": "进入编辑器、保存、退出",
+    "result": "能安全改配置并退出",
+    "risk": "卡在编辑器里或覆盖配置",
+    "diagram": "editor",
+    "route": [
+      {
+        "label": "打开文件",
+        "title": "先确认文件路径和备份",
+        "text": "配置文件不是练习本，重要配置先复制一份。"
+      },
+      {
+        "label": "进入编辑",
+        "title": "区分插入、保存和退出",
+        "text": "Vim/Nano 的核心不是炫技，是可靠改完并退出。"
+      },
+      {
+        "label": "保存验证",
+        "title": "i -> edit -> Esc -> :wq",
+        "text": "保存后用 cat/diff 或服务检查确认内容。"
+      },
+      {
+        "label": "回滚准备",
+        "title": "改坏要能恢复",
+        "text": "知道备份文件、版本控制或撤销方式。"
+      }
+    ]
+  },
+  {
+    "id": "yqRwmcZThjQuqh2ao0dWK",
+    "label": "Nano",
+    "heading": "Nano：把配置文件安全改完",
+    "subheading": "Nano 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Nano 相关问题。这里要学会把它放回真实机器：文本文件、命令输入、输出结果和风险边界。",
+    "core": "Nano = 用 nano file -> Ctrl+O -> Ctrl+X 围绕「文本文件」完成「进入编辑器、保存、退出」，目标是能安全改配置并退出。",
+    "metaphor": "它像改电箱标签：不是写字难，而是改完要知道怎么保存、怎么退出、怎么回滚。",
+    "mistake": "不要把 Nano 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Nano 容易和相邻命令混在一起：它的边界是「进入编辑器、保存、退出」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `nano file -> Ctrl+O -> Ctrl+X` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "nano file -> Ctrl+O -> Ctrl+X",
+    "subject": "文本文件",
+    "action": "进入编辑器、保存、退出",
+    "result": "能安全改配置并退出",
+    "risk": "卡在编辑器里或覆盖配置",
+    "diagram": "editor",
+    "route": [
+      {
+        "label": "打开文件",
+        "title": "先确认文件路径和备份",
+        "text": "配置文件不是练习本，重要配置先复制一份。"
+      },
+      {
+        "label": "进入编辑",
+        "title": "区分插入、保存和退出",
+        "text": "Vim/Nano 的核心不是炫技，是可靠改完并退出。"
+      },
+      {
+        "label": "保存验证",
+        "title": "nano file -> Ctrl+O -> Ctrl+X",
+        "text": "保存后用 cat/diff 或服务检查确认内容。"
+      },
+      {
+        "label": "回滚准备",
+        "title": "改坏要能恢复",
+        "text": "知道备份文件、版本控制或撤销方式。"
+      }
+    ]
+  },
+  {
+    "id": "HGmeYvRf7_XusZl_K4x9k",
+    "label": "Editing Files",
+    "heading": "Editing Files：把配置文件安全改完",
+    "subheading": "Editing Files 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Editing Files 相关问题。这里要学会把它放回真实机器：文本文件、命令输入、输出结果和风险边界。",
+    "core": "Editing Files = 用 vim / nano / sed 围绕「文本文件」完成「进入编辑器、保存、退出」，目标是能安全改配置并退出。",
+    "metaphor": "它像改电箱标签：不是写字难，而是改完要知道怎么保存、怎么退出、怎么回滚。",
+    "mistake": "不要把 Editing Files 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Editing Files 容易和相邻命令混在一起：它的边界是「进入编辑器、保存、退出」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `vim / nano / sed` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "vim / nano / sed",
+    "subject": "文本文件",
+    "action": "进入编辑器、保存、退出",
+    "result": "能安全改配置并退出",
+    "risk": "卡在编辑器里或覆盖配置",
+    "diagram": "editor",
+    "route": [
+      {
+        "label": "打开文件",
+        "title": "先确认文件路径和备份",
+        "text": "配置文件不是练习本，重要配置先复制一份。"
+      },
+      {
+        "label": "进入编辑",
+        "title": "区分插入、保存和退出",
+        "text": "Vim/Nano 的核心不是炫技，是可靠改完并退出。"
+      },
+      {
+        "label": "保存验证",
+        "title": "vim / nano / sed",
+        "text": "保存后用 cat/diff 或服务检查确认内容。"
+      },
+      {
+        "label": "回滚准备",
+        "title": "改坏要能恢复",
+        "text": "知道备份文件、版本控制或撤销方式。"
+      }
+    ]
+  },
+  {
+    "id": "3fzuXKH7az_LVnmnoXB1p",
+    "label": "Directory Hierarchy Overview",
+    "heading": "Directory Hierarchy Overview：把文件路径当成地图来学",
+    "subheading": "Directory Hierarchy Overview 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Directory Hierarchy Overview 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Directory Hierarchy Overview = 用 / /etc /var /home /usr 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Directory Hierarchy Overview 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Directory Hierarchy Overview 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `/ /etc /var /home /usr` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "/ /etc /var /home /usr",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "path",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "/ /etc /var /home /usr",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "moGMHNR58wFlzhS7je1wc",
+    "label": "Command Path",
+    "heading": "Command Path：把文件路径当成地图来学",
+    "subheading": "Command Path 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Command Path 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Command Path = 用 type / which / PATH 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Command Path 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Command Path 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `type / which / PATH` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "type / which / PATH",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "type / which / PATH",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "t3fxSgCgtxuMtHjclPHA6",
+    "label": "stdout / stdin / stderr",
+    "heading": "stdout / stdin / stderr：把文本流拆成可用信息",
+    "subheading": "stdout / stdin / stderr 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 stdout / stdin / stderr 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "stdout / stdin / stderr = 用 0 stdin / 1 stdout / 2 stderr 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 stdout / stdin / stderr 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "stdout / stdin / stderr 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `0 stdin / 1 stdout / 2 stderr` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "0 stdin / 1 stdout / 2 stderr",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "0 stdin / 1 stdout / 2 stderr",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "Z5Mf_e5G24IkmxEHgYBe2",
+    "label": "cut",
+    "heading": "cut：把文本流拆成可用信息",
+    "subheading": "cut 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 cut 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "cut = 用 cut -d: -f1 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 cut 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "cut 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `cut -d: -f1` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "cut -d: -f1",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "slice",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "cut -d: -f1",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "zwXEmpPYjA7_msS43z7I0",
+    "label": "Environment Variables",
+    "heading": "Environment Variables：把命令写成可靠脚本",
+    "subheading": "Environment Variables 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Environment Variables 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Environment Variables = 用 export APP_ENV=prod 围绕「Shell 脚本」完成「变量、条件、循环和调试」，目标是把重复操作变成可靠脚本。",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Environment Variables 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Environment Variables 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `export APP_ENV=prod` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "export APP_ENV=prod",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      },
+      {
+        "label": "写逻辑",
+        "title": "export APP_ENV=prod",
+        "text": "变量、条件和循环只服务一个明确任务。"
+      },
+      {
+        "label": "处理失败",
+        "title": "检查退出码和 set -e",
+        "text": "脚本最怕前一步失败后还继续执行。"
+      },
+      {
+        "label": "调试输出",
+        "title": "set -x 或 echo 关键变量",
+        "text": "调试时让脚本把关键路径说出来。"
+      }
+    ]
+  },
+  {
+    "id": "5658kdqJw-pIOyyhll80a",
+    "label": "paste",
+    "heading": "paste：把文本流拆成可用信息",
+    "subheading": "paste 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 paste 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "paste = 用 paste a.txt b.txt 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 paste 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "paste 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `paste a.txt b.txt` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "paste a.txt b.txt",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "paste a.txt b.txt",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "1WRIy3xHtQfiQFZrprobP",
+    "label": "sort",
+    "heading": "sort：把文本流拆成可用信息",
+    "subheading": "sort 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 sort 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "sort = 用 sort access.log 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 sort 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "sort 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `sort access.log` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "sort access.log",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "slice",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "sort access.log",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "O9Vci_WpUY-79AkA4HDx3",
+    "label": "tr",
+    "heading": "tr：把文本流拆成可用信息",
+    "subheading": "tr 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 tr 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "tr = 用 tr 'a-z' 'A-Z' 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 tr 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "tr 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `tr 'a-z' 'A-Z'` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "tr 'a-z' 'A-Z'",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "tr 'a-z' 'A-Z'",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "6xdkFk_GT93MigeTSSGCp",
+    "label": "head",
+    "heading": "head：把文本流拆成可用信息",
+    "subheading": "head 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 head 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "head = 用 head -n 20 file 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 head 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "head 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `head -n 20 file` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "head -n 20 file",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "head -n 20 file",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "KaMSsQnJzNqGHg0Oia4uy",
+    "label": "Command Help",
+    "heading": "Command Help：按证据排查服务器问题",
+    "subheading": "Command Help 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Command Help 相关问题。这里要学会把它放回真实机器：服务器状态、命令输入、输出结果和风险边界。",
+    "core": "Command Help = 用 man / --help / tldr 围绕「服务器状态」完成「观察、定位、验证」，目标是排障时少猜多证据。",
+    "metaphor": "它像值班排障：先看仪表，再缩小范围，最后只改最小必要配置。",
+    "mistake": "不要把 Command Help 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Command Help 容易和相邻命令混在一起：它的边界是「观察、定位、验证」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `man / --help / tldr` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "man / --help / tldr",
+    "subject": "服务器状态",
+    "action": "观察、定位、验证",
+    "result": "排障时少猜多证据",
+    "risk": "没看证据就改配置",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "观察现象",
+        "title": "先收集命令输出和日志",
+        "text": "排障不是猜答案，而是收集证据。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "man / --help / tldr",
+        "text": "每次只验证一个方向。"
+      },
+      {
+        "label": "最小改动",
+        "title": "改配置前保留现场",
+        "text": "线上只做能解释的最小变更。"
+      },
+      {
+        "label": "复盘记录",
+        "title": "写下原因和命令",
+        "text": "让下次相同问题更快定位。"
+      }
+    ]
+  },
+  {
+    "id": "8QBMyL8D5jPovxN8jyZW9",
+    "label": "Shell and Other Basics",
+    "heading": "Shell and Other Basics：按证据排查服务器问题",
+    "subheading": "Shell and Other Basics 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Shell and Other Basics 相关问题。这里要学会把它放回真实机器：服务器状态、命令输入、输出结果和风险边界。",
+    "core": "Shell and Other Basics = 用 command | command > file 围绕「服务器状态」完成「观察、定位、验证」，目标是排障时少猜多证据。",
+    "metaphor": "它像值班排障：先看仪表，再缩小范围，最后只改最小必要配置。",
+    "mistake": "不要把 Shell and Other Basics 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Shell and Other Basics 容易和相邻命令混在一起：它的边界是「观察、定位、验证」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `command | command > file` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "command | command > file",
+    "subject": "服务器状态",
+    "action": "观察、定位、验证",
+    "result": "排障时少猜多证据",
+    "risk": "没看证据就改配置",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "观察现象",
+        "title": "先收集命令输出和日志",
+        "text": "排障不是猜答案，而是收集证据。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "command | command > file",
+        "text": "每次只验证一个方向。"
+      },
+      {
+        "label": "最小改动",
+        "title": "改配置前保留现场",
+        "text": "线上只做能解释的最小变更。"
+      },
+      {
+        "label": "复盘记录",
+        "title": "写下原因和命令",
+        "text": "让下次相同问题更快定位。"
+      }
+    ]
+  },
+  {
+    "id": "Yyk28H6TiteZEGv6Aps1h",
+    "label": "tail",
+    "heading": "tail：把文本流拆成可用信息",
+    "subheading": "tail 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 tail 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "tail = 用 tail -f app.log 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 tail 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "tail 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `tail -f app.log` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "tail -f app.log",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "tail -f app.log",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "vfcCS1GoyKpU1rQaE8I5r",
+    "label": "join",
+    "heading": "join：把文本流拆成可用信息",
+    "subheading": "join 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 join 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "join = 用 join users orders 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 join 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "join 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `join users orders` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "join users orders",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "join users orders",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "Pl9s2ti25hsSEljXJvBTj",
+    "label": "split",
+    "heading": "split：把文本流拆成可用信息",
+    "subheading": "split 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 split 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "split = 用 split -l 1000 big.log 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 split 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "split 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `split -l 1000 big.log` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "split -l 1000 big.log",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "split -l 1000 big.log",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "v32PJl4fzIFTOirOm6G44",
+    "label": "pipe",
+    "heading": "pipe：把文本流拆成可用信息",
+    "subheading": "pipe 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 pipe 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "pipe = 用 producer | consumer 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 pipe 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "pipe 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `producer | consumer` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "producer | consumer",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "producer | consumer",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "JgoZzx4BfK7tmosgpZOsf",
+    "label": "Redirects",
+    "heading": "Redirects：把文本流拆成可用信息",
+    "subheading": "Redirects 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Redirects 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "Redirects = 用 >  >>  2>  2>&1 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 Redirects 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Redirects 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `>  >>  2>  2>&1` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": ">  >>  2>  2>&1",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": ">  >>  2>  2>&1",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "Bo9CdrGJej-QcNmw46k9t",
+    "label": "tee",
+    "heading": "tee：把文本流拆成可用信息",
+    "subheading": "tee 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 tee 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "tee = 用 cmd | tee out.log 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 tee 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "tee 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `cmd | tee out.log` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "cmd | tee out.log",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "cmd | tee out.log",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "YSfGrmT795miIeIZrtC3D",
+    "label": "nl",
+    "heading": "nl：把文本流拆成可用信息",
+    "subheading": "nl 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 nl 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "nl = 用 nl file 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 nl 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "nl 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `nl file` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "nl file",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "nl file",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "LIGOJwrXexnIcPyHVlhQ8",
+    "label": "wc",
+    "heading": "wc：把文本流拆成可用信息",
+    "subheading": "wc 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 wc 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "wc = 用 wc -l -w -c 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 wc 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "wc 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `wc -l -w -c` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "wc -l -w -c",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "slice",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "wc -l -w -c",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "TZuDVFS7DZFBgaSYYXoGe",
+    "label": "expand",
+    "heading": "expand：把文本流拆成可用信息",
+    "subheading": "expand 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 expand 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "expand = 用 expand -t 4 file 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 expand 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "expand 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `expand -t 4 file` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "expand -t 4 file",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "expand -t 4 file",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "NIBSZGE9PskVrluJpdom0",
+    "label": "Super User",
+    "heading": "Super User：把权限边界看清楚",
+    "subheading": "Super User 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Super User 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "Super User = 用 sudo command 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 Super User 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Super User 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `sudo command` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "sudo command",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "user",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "sudo command",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "sKduFaX6xZaUUBdXRMKCL",
+    "label": "unexpand",
+    "heading": "unexpand：把文本流拆成可用信息",
+    "subheading": "unexpand 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 unexpand 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "unexpand = 用 unexpand -t 4 file 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 unexpand 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "unexpand 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `unexpand -t 4 file` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "unexpand -t 4 file",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "streams",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "unexpand -t 4 file",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "qnBbzphImflQbEbtFub9x",
+    "label": "uniq",
+    "heading": "uniq：把文本流拆成可用信息",
+    "subheading": "uniq 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 uniq 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "uniq = 用 sort file | uniq -c 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 uniq 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "uniq 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `sort file | uniq -c` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "sort file | uniq -c",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "slice",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "sort file | uniq -c",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "umlhxidsvtZG9k40Ca0Ac",
+    "label": "grep",
+    "heading": "grep：把文本流拆成可用信息",
+    "subheading": "grep 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 grep 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "grep = 用 grep -R \\",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 grep 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "grep 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `grep -R \\",
+    "command": "grep -R \\",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "QTmECqpRVMjNgQU70uCF8",
+    "label": "awk",
+    "heading": "awk：把文本流拆成可用信息",
+    "subheading": "awk 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 awk 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "awk = 用 awk '{print $1}' 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 awk 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "awk 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `awk '{print $1}'` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "awk '{print $1}'",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "awk '{print $1}'",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "TnrT-cqMA8urew9nLv0Ns",
+    "label": "File Permissions",
+    "heading": "File Permissions：把权限边界看清楚",
+    "subheading": "File Permissions 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 File Permissions 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "File Permissions = 用 chmod / chown / umask 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 File Permissions 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "File Permissions 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `chmod / chown / umask` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "chmod / chown / umask",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "chmod / chown / umask",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "iD073xTmpzvQFfXwcwXcY",
+    "label": "Archiving and Compressing",
+    "heading": "Archiving and Compressing：按证据排查服务器问题",
+    "subheading": "Archiving and Compressing 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Archiving and Compressing 相关问题。这里要学会把它放回真实机器：服务器状态、命令输入、输出结果和风险边界。",
+    "core": "Archiving and Compressing = 用 tar -czf app.tgz app/ 围绕「服务器状态」完成「观察、定位、验证」，目标是排障时少猜多证据。",
+    "metaphor": "它像值班排障：先看仪表，再缩小范围，最后只改最小必要配置。",
+    "mistake": "不要把 Archiving and Compressing 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Archiving and Compressing 容易和相邻命令混在一起：它的边界是「观察、定位、验证」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `tar -czf app.tgz app/` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "tar -czf app.tgz app/",
+    "subject": "服务器状态",
+    "action": "观察、定位、验证",
+    "result": "排障时少猜多证据",
+    "risk": "没看证据就改配置",
+    "diagram": "trouble",
+    "route": [
+      {
+        "label": "观察现象",
+        "title": "先收集命令输出和日志",
+        "text": "排障不是猜答案，而是收集证据。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "tar -czf app.tgz app/",
+        "text": "每次只验证一个方向。"
+      },
+      {
+        "label": "最小改动",
+        "title": "改配置前保留现场",
+        "text": "线上只做能解释的最小变更。"
+      },
+      {
+        "label": "复盘记录",
+        "title": "写下原因和命令",
+        "text": "让下次相同问题更快定位。"
+      }
+    ]
+  },
+  {
+    "id": "RsOTPZPZGTEIt1Lk41bQV",
+    "label": "Working with Files",
+    "heading": "Working with Files：把文件路径当成地图来学",
+    "subheading": "Working with Files 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Working with Files 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Working with Files = 用 find / cp / mv / rm 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Working with Files 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Working with Files 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `find / cp / mv / rm` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "find / cp / mv / rm",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "tree",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "find / cp / mv / rm",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "-B2Dvz7160Er0OBHzS6ro",
+    "label": "Text Processing",
+    "heading": "Text Processing：把文本流拆成可用信息",
+    "subheading": "Text Processing 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Text Processing 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "Text Processing = 用 grep | awk | sort | uniq 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 Text Processing 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Text Processing 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `grep | awk | sort | uniq` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "grep | awk | sort | uniq",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "grep | awk | sort | uniq",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "abKO6KuuIfl9ruVxBw6t_",
+    "label": "Copying and Renaming",
+    "heading": "Copying and Renaming：把文件路径当成地图来学",
+    "subheading": "Copying and Renaming 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Copying and Renaming 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Copying and Renaming = 用 cp -a / mv 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Copying and Renaming 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Copying and Renaming 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `cp -a / mv` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "cp -a / mv",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "cp -a / mv",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "KaXHG_EKxI5PUXmcvlJt6",
+    "label": "Soft Links / Hard Links",
+    "heading": "Soft Links / Hard Links：把文件路径当成地图来学",
+    "subheading": "Soft Links / Hard Links 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Soft Links / Hard Links 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Soft Links / Hard Links = 用 ln -s / ln 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Soft Links / Hard Links 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Soft Links / Hard Links 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ln -s / ln` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ln -s / ln",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "move",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "ln -s / ln",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "h01Y6dW09ChidlM2HYoav",
+    "label": "Process Management",
+    "heading": "Process Management：看懂进程在机器上怎么跑",
+    "subheading": "Process Management 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Process Management 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Process Management = 用 ps / top / kill 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Process Management 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Process Management 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ps / top / kill` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ps / top / kill",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "process",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "ps / top / kill",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "jSzfQf0MlnXtWHCc-HYvr",
+    "label": "Server Review",
+    "heading": "Server Review：按证据排查服务器问题",
+    "subheading": "Server Review 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Server Review 相关问题。这里要学会把它放回真实机器：服务器状态、命令输入、输出结果和风险边界。",
+    "core": "Server Review = 用 uname / uptime / df / free 围绕「服务器状态」完成「观察、定位、验证」，目标是排障时少猜多证据。",
+    "metaphor": "它像值班排障：先看仪表，再缩小范围，最后只改最小必要配置。",
+    "mistake": "不要把 Server Review 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Server Review 容易和相邻命令混在一起：它的边界是「观察、定位、验证」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `uname / uptime / df / free` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "uname / uptime / df / free",
+    "subject": "服务器状态",
+    "action": "观察、定位、验证",
+    "result": "排障时少猜多证据",
+    "risk": "没看证据就改配置",
+    "diagram": "trouble",
+    "route": [
+      {
+        "label": "观察现象",
+        "title": "先收集命令输出和日志",
+        "text": "排障不是猜答案，而是收集证据。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "uname / uptime / df / free",
+        "text": "每次只验证一个方向。"
+      },
+      {
+        "label": "最小改动",
+        "title": "改配置前保留现场",
+        "text": "线上只做能解释的最小变更。"
+      },
+      {
+        "label": "复盘记录",
+        "title": "写下原因和命令",
+        "text": "让下次相同问题更快定位。"
+      }
+    ]
+  },
+  {
+    "id": "mUKoiGUTpIaUgQNF3BND_",
+    "label": "Background / Foreground Processes",
+    "heading": "Background / Foreground Processes：看懂进程在机器上怎么跑",
+    "subheading": "Background / Foreground Processes 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Background / Foreground Processes 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Background / Foreground Processes = 用 cmd & / jobs / fg / bg 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Background / Foreground Processes 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Background / Foreground Processes 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `cmd & / jobs / fg / bg` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "cmd & / jobs / fg / bg",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "cmd & / jobs / fg / bg",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "19lTWqAvZFT2CDlhLlPSq",
+    "label": "Uptime and Load",
+    "heading": "Uptime and Load：看懂进程在机器上怎么跑",
+    "subheading": "Uptime and Load 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Uptime and Load 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Uptime and Load = 用 uptime / top 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Uptime and Load 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Uptime and Load 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `uptime / top` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "uptime / top",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "uptime / top",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "g6n7f1Qi0BPr_BGvisWuz",
+    "label": "User Management",
+    "heading": "User Management：把权限边界看清楚",
+    "subheading": "User Management 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 User Management 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "User Management = 用 useradd / passwd / usermod 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 User Management 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "User Management 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `useradd / passwd / usermod` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "useradd / passwd / usermod",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "user",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "useradd / passwd / usermod",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "lf3_CRyOI2ZXGzz5ff451",
+    "label": "Listing / Finding Processes",
+    "heading": "Listing / Finding Processes：看懂进程在机器上怎么跑",
+    "subheading": "Listing / Finding Processes 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Listing / Finding Processes 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Listing / Finding Processes = 用 ps aux / pgrep 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Listing / Finding Processes 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Listing / Finding Processes 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ps aux / pgrep` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ps aux / pgrep",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "ps aux / pgrep",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "WwybfdKuP9ogCGpT7d3NU",
+    "label": "Authentication Logs",
+    "heading": "Authentication Logs：把权限边界看清楚",
+    "subheading": "Authentication Logs 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Authentication Logs 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "Authentication Logs = 用 journalctl /var/log/auth.log 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 Authentication Logs 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Authentication Logs 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `journalctl /var/log/auth.log` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "journalctl /var/log/auth.log",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "journalctl /var/log/auth.log",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "R9TZfkgVUQNLnMpDhovJa",
+    "label": "Create / Delete / Update",
+    "heading": "Create / Delete / Update：把权限边界看清楚",
+    "subheading": "Create / Delete / Update 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Create / Delete / Update 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "Create / Delete / Update = 用 useradd / userdel / usermod 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 Create / Delete / Update 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Create / Delete / Update 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `useradd / userdel / usermod` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "useradd / userdel / usermod",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "permission",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "useradd / userdel / usermod",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "VkLWTvKnRXzvLGWza2v45",
+    "label": "Process Signals",
+    "heading": "Process Signals：看懂进程在机器上怎么跑",
+    "subheading": "Process Signals 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Process Signals 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Process Signals = 用 TERM / KILL / HUP 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Process Signals 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Process Signals 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `TERM / KILL / HUP` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "TERM / KILL / HUP",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "TERM / KILL / HUP",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "0FLUI9r7znMqi6YKReLzD",
+    "label": "Killing Processes",
+    "heading": "Killing Processes：看懂进程在机器上怎么跑",
+    "subheading": "Killing Processes 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Killing Processes 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Killing Processes = 用 kill / pkill 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Killing Processes 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Killing Processes 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `kill / pkill` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "kill / pkill",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "kill / pkill",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "ewUuI_x-YhOQIYd3MTgJJ",
+    "label": "Services Running",
+    "heading": "Services Running：用 systemd 管住后台服务",
+    "subheading": "Services Running 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Services Running 相关问题。这里要学会把它放回真实机器：systemd 服务、命令输入、输出结果和风险边界。",
+    "core": "Services Running = 用 systemctl list-units 围绕「systemd 服务」完成「启动、停止、看日志」，目标是服务可控、故障可查。",
+    "metaphor": "它像后台常驻岗位：systemd 负责让服务按规则启动、失败记录、开机接班。",
+    "mistake": "不要把 Services Running 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Services Running 容易和相邻命令混在一起：它的边界是「启动、停止、看日志」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `systemctl list-units` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "systemctl list-units",
+    "subject": "systemd 服务",
+    "action": "启动、停止、看日志",
+    "result": "服务可控、故障可查",
+    "risk": "只看 active 不看日志",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "找 unit",
+        "title": "确认服务名和 unit 文件",
+        "text": "systemd 管的是 unit，不只是一个进程名。"
+      },
+      {
+        "label": "看状态",
+        "title": "systemctl list-units",
+        "text": "status 看状态，journalctl 看原因。"
+      },
+      {
+        "label": "控制生命周期",
+        "title": "start/stop/restart/enable",
+        "text": "区分现在启动和开机自启。"
+      },
+      {
+        "label": "读日志",
+        "title": "用日志解释失败",
+        "text": "服务失败优先看日志，不要反复重启碰运气。"
+      }
+    ]
+  },
+  {
+    "id": "h8wc8XEwWYHErna68w7Mg",
+    "label": "Users and Groups",
+    "heading": "Users and Groups：把权限边界看清楚",
+    "subheading": "Users and Groups 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Users and Groups 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "Users and Groups = 用 id / groups / usermod -aG 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 Users and Groups 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Users and Groups 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `id / groups / usermod -aG` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "id / groups / usermod -aG",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "user",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "id / groups / usermod -aG",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "5anSYRhaKIs3dCLWlvZfT",
+    "label": "Process Priorities",
+    "heading": "Process Priorities：看懂进程在机器上怎么跑",
+    "subheading": "Process Priorities 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Process Priorities 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Process Priorities = 用 nice / renice 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Process Priorities 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Process Priorities 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `nice / renice` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "nice / renice",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "nice / renice",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "Rib7h9lh_ndiXkwNbftz_",
+    "label": "Process Forking",
+    "heading": "Process Forking：看懂进程在机器上怎么跑",
+    "subheading": "Process Forking 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Process Forking 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Process Forking = 用 parent -> child PID 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Process Forking 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Process Forking 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `parent -> child PID` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "parent -> child PID",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "parent -> child PID",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "tx0nh6cbBjVxwNlyrBNYm",
+    "label": "Available Memory / Disk",
+    "heading": "Available Memory / Disk：把磁盘空间接到目录上",
+    "subheading": "Available Memory / Disk 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Available Memory / Disk 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Available Memory / Disk = 用 free -h / df -h 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Available Memory / Disk 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Available Memory / Disk 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `free -h / df -h` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "free -h / df -h",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "tree",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "free -h / df -h",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "L6RMExeqi9501y-eCHDt1",
+    "label": "Managing Permissions",
+    "heading": "Managing Permissions：把权限边界看清楚",
+    "subheading": "Managing Permissions 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Managing Permissions 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "Managing Permissions = 用 chmod 640 / chown app:app 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 Managing Permissions 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Managing Permissions 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `chmod 640 / chown app:app` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "chmod 640 / chown app:app",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "chmod 640 / chown app:app",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "34UUrc8Yjc_8lvTL8itc3",
+    "label": "Creating New Services",
+    "heading": "Creating New Services：把文件路径当成地图来学",
+    "subheading": "Creating New Services 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Creating New Services 相关问题。这里要学会把它放回真实机器：文件系统、命令输入、输出结果和风险边界。",
+    "core": "Creating New Services = 用 unit file + systemctl enable 围绕「文件系统」完成「定位、移动、创建和删除路径」，目标是知道命令改了哪个目录或文件。",
+    "metaphor": "它像在服务器这座大楼里找房间、搬箱子：先确认自己在哪一层，再决定搬哪个箱子到哪里。",
+    "mistake": "不要把 Creating New Services 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Creating New Services 容易和相邻命令混在一起：它的边界是「定位、移动、创建和删除路径」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `unit file + systemctl enable` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "unit file + systemctl enable",
+    "subject": "文件系统",
+    "action": "定位、移动、创建和删除路径",
+    "result": "知道命令改了哪个目录或文件",
+    "risk": "在错误目录执行 rm 或 mv",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "确认位置",
+        "title": "先用 pwd/ls 看自己在哪",
+        "text": "动文件前先确认当前目录和目标路径，避免在错误位置操作。"
+      },
+      {
+        "label": "选动作",
+        "title": "区分查看、复制、移动、删除",
+        "text": "不同动作对文件系统影响不同，删除和覆盖尤其要先确认对象。"
+      },
+      {
+        "label": "执行命令",
+        "title": "unit file + systemctl enable",
+        "text": "把命令拆成来源、目标和选项三部分读。"
+      },
+      {
+        "label": "验结果",
+        "title": "再 ls/stat/tree 检查",
+        "text": "命令没报错不等于结果正确，最后要看文件是否真的在预期位置。"
+      }
+    ]
+  },
+  {
+    "id": "AwQJYL60NNbA5_z7iLcM7",
+    "label": "Inodes",
+    "heading": "Inodes：把磁盘空间接到目录上",
+    "subheading": "Inodes 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Inodes 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Inodes = 用 df -i / ls -i 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Inodes 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Inodes 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `df -i / ls -i` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "df -i / ls -i",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "tree",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "df -i / ls -i",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "LFPhSHOhUqM98fUxMjQUw",
+    "label": "Filesystems",
+    "heading": "Filesystems：把磁盘空间接到目录上",
+    "subheading": "Filesystems 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Filesystems 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Filesystems = 用 ext4 / xfs / tmpfs 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Filesystems 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Filesystems 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ext4 / xfs / tmpfs` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ext4 / xfs / tmpfs",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "ext4 / xfs / tmpfs",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "FStz-bftQBK0M6zz2Bxl4",
+    "label": "Checking Service Logs",
+    "heading": "Checking Service Logs：用 systemd 管住后台服务",
+    "subheading": "Checking Service Logs 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Checking Service Logs 相关问题。这里要学会把它放回真实机器：systemd 服务、命令输入、输出结果和风险边界。",
+    "core": "Checking Service Logs = 用 journalctl -u service 围绕「systemd 服务」完成「启动、停止、看日志」，目标是服务可控、故障可查。",
+    "metaphor": "它像后台常驻岗位：systemd 负责让服务按规则启动、失败记录、开机接班。",
+    "mistake": "不要把 Checking Service Logs 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Checking Service Logs 容易和相邻命令混在一起：它的边界是「启动、停止、看日志」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `journalctl -u service` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "journalctl -u service",
+    "subject": "systemd 服务",
+    "action": "启动、停止、看日志",
+    "result": "服务可控、故障可查",
+    "risk": "只看 active 不看日志",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "找 unit",
+        "title": "确认服务名和 unit 文件",
+        "text": "systemd 管的是 unit，不只是一个进程名。"
+      },
+      {
+        "label": "看状态",
+        "title": "journalctl -u service",
+        "text": "status 看状态，journalctl 看原因。"
+      },
+      {
+        "label": "控制生命周期",
+        "title": "start/stop/restart/enable",
+        "text": "区分现在启动和开机自启。"
+      },
+      {
+        "label": "读日志",
+        "title": "用日志解释失败",
+        "text": "服务失败优先看日志，不要反复重启碰运气。"
+      }
+    ]
+  },
+  {
+    "id": "F1sU3O1ouxTOvpidDfN3k",
+    "label": "Service Management (systemd)",
+    "heading": "Service Management (systemd)：用 systemd 管住后台服务",
+    "subheading": "Service Management (systemd) 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Service Management (systemd) 相关问题。这里要学会把它放回真实机器：systemd 服务、命令输入、输出结果和风险边界。",
+    "core": "Service Management (systemd) = 用 systemctl start/status/enable 围绕「systemd 服务」完成「启动、停止、看日志」，目标是服务可控、故障可查。",
+    "metaphor": "它像后台常驻岗位：systemd 负责让服务按规则启动、失败记录、开机接班。",
+    "mistake": "不要把 Service Management (systemd) 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Service Management (systemd) 容易和相邻命令混在一起：它的边界是「启动、停止、看日志」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `systemctl start/status/enable` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "systemctl start/status/enable",
+    "subject": "systemd 服务",
+    "action": "启动、停止、看日志",
+    "result": "服务可控、故障可查",
+    "risk": "只看 active 不看日志",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "找 unit",
+        "title": "确认服务名和 unit 文件",
+        "text": "systemd 管的是 unit，不只是一个进程名。"
+      },
+      {
+        "label": "看状态",
+        "title": "systemctl start/status/enable",
+        "text": "status 看状态，journalctl 看原因。"
+      },
+      {
+        "label": "控制生命周期",
+        "title": "start/stop/restart/enable",
+        "text": "区分现在启动和开机自启。"
+      },
+      {
+        "label": "读日志",
+        "title": "用日志解释失败",
+        "text": "服务失败优先看日志，不要反复重启碰运气。"
+      }
+    ]
+  },
+  {
+    "id": "zmb5lK_EGMAChPoPvP9E0",
+    "label": "Mounts",
+    "heading": "Mounts：把磁盘空间接到目录上",
+    "subheading": "Mounts 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Mounts 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Mounts = 用 mount /etc/fstab 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Mounts 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Mounts 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `mount /etc/fstab` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "mount /etc/fstab",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "mount /etc/fstab",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "I3LNa1cM_zRkBy8wKdz3g",
+    "label": "LVM",
+    "heading": "LVM：把磁盘空间接到目录上",
+    "subheading": "LVM 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 LVM 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "LVM = 用 PV -> VG -> LV 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 LVM 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "LVM 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `PV -> VG -> LV` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "PV -> VG -> LV",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "disk",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "PV -> VG -> LV",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "DuEfJNrm4Jfmp8-8Pggrf",
+    "label": "Starting / Stopping Services",
+    "heading": "Starting / Stopping Services：用 systemd 管住后台服务",
+    "subheading": "Starting / Stopping Services 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Starting / Stopping Services 相关问题。这里要学会把它放回真实机器：systemd 服务、命令输入、输出结果和风险边界。",
+    "core": "Starting / Stopping Services = 用 systemctl start/stop 围绕「systemd 服务」完成「启动、停止、看日志」，目标是服务可控、故障可查。",
+    "metaphor": "它像后台常驻岗位：systemd 负责让服务按规则启动、失败记录、开机接班。",
+    "mistake": "不要把 Starting / Stopping Services 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Starting / Stopping Services 容易和相邻命令混在一起：它的边界是「启动、停止、看日志」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `systemctl start/stop` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "systemctl start/stop",
+    "subject": "systemd 服务",
+    "action": "启动、停止、看日志",
+    "result": "服务可控、故障可查",
+    "risk": "只看 active 不看日志",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "找 unit",
+        "title": "确认服务名和 unit 文件",
+        "text": "systemd 管的是 unit，不只是一个进程名。"
+      },
+      {
+        "label": "看状态",
+        "title": "systemctl start/stop",
+        "text": "status 看状态，journalctl 看原因。"
+      },
+      {
+        "label": "控制生命周期",
+        "title": "start/stop/restart/enable",
+        "text": "区分现在启动和开机自启。"
+      },
+      {
+        "label": "读日志",
+        "title": "用日志解释失败",
+        "text": "服务失败优先看日志，不要反复重启碰运气。"
+      }
+    ]
+  },
+  {
+    "id": "4xBaZPk0eSsWG1vK3e2yW",
+    "label": "Adding Disks",
+    "heading": "Adding Disks：把磁盘空间接到目录上",
+    "subheading": "Adding Disks 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Adding Disks 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Adding Disks = 用 lsblk -> partition -> mkfs -> mount 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Adding Disks 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Adding Disks 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `lsblk -> partition -> mkfs -> mount` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "lsblk -> partition -> mkfs -> mount",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "lsblk -> partition -> mkfs -> mount",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "AWosNs2nvDGV8r6WvgBI1",
+    "label": "Swap",
+    "heading": "Swap：把磁盘空间接到目录上",
+    "subheading": "Swap 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Swap 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Swap = 用 swapon / swapoff 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Swap 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Swap 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `swapon / swapoff` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "swapon / swapoff",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "disk",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "swapon / swapoff",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "xk5Xgi797HlVjdZJRfwX1",
+    "label": "Checking Service Status",
+    "heading": "Checking Service Status：用 systemd 管住后台服务",
+    "subheading": "Checking Service Status 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Checking Service Status 相关问题。这里要学会把它放回真实机器：systemd 服务、命令输入、输出结果和风险边界。",
+    "core": "Checking Service Status = 用 systemctl status 围绕「systemd 服务」完成「启动、停止、看日志」，目标是服务可控、故障可查。",
+    "metaphor": "它像后台常驻岗位：systemd 负责让服务按规则启动、失败记录、开机接班。",
+    "mistake": "不要把 Checking Service Status 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Checking Service Status 容易和相邻命令混在一起：它的边界是「启动、停止、看日志」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `systemctl status` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "systemctl status",
+    "subject": "systemd 服务",
+    "action": "启动、停止、看日志",
+    "result": "服务可控、故障可查",
+    "risk": "只看 active 不看日志",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "找 unit",
+        "title": "确认服务名和 unit 文件",
+        "text": "systemd 管的是 unit，不只是一个进程名。"
+      },
+      {
+        "label": "看状态",
+        "title": "systemctl status",
+        "text": "status 看状态，journalctl 看原因。"
+      },
+      {
+        "label": "控制生命周期",
+        "title": "start/stop/restart/enable",
+        "text": "区分现在启动和开机自启。"
+      },
+      {
+        "label": "读日志",
+        "title": "用日志解释失败",
+        "text": "服务失败优先看日志，不要反复重启碰运气。"
+      }
+    ]
+  },
+  {
+    "id": "4eINX8jYMJxfYh7ZV47YI",
+    "label": "Package Management",
+    "heading": "Package Management：从可信来源安装软件",
+    "subheading": "Package Management 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Package Management 相关问题。这里要学会把它放回真实机器：软件包和仓库、命令输入、输出结果和风险边界。",
+    "core": "Package Management = 用 apt/dnf install 围绕「软件包和仓库」完成「查找、安装、升级、移除」，目标是依赖可复现安装。",
+    "metaphor": "它像从官方仓库领工具：先看来源和版本，再安装、升级或移除。",
+    "mistake": "不要把 Package Management 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Package Management 容易和相邻命令混在一起：它的边界是「查找、安装、升级、移除」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `apt/dnf install` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "apt/dnf install",
+    "subject": "软件包和仓库",
+    "action": "查找、安装、升级、移除",
+    "result": "依赖可复现安装",
+    "risk": "混源或升级破坏版本",
+    "diagram": "package",
+    "route": [
+      {
+        "label": "查来源",
+        "title": "确认仓库和包名",
+        "text": "安装前先知道包来自哪个 repository。"
+      },
+      {
+        "label": "看版本",
+        "title": "apt/dnf install",
+        "text": "生产环境尤其要关注版本、依赖和升级影响。"
+      },
+      {
+        "label": "执行安装",
+        "title": "install/remove/upgrade",
+        "text": "包管理器会处理依赖，但不会替你判断兼容性。"
+      },
+      {
+        "label": "验证命令",
+        "title": "which/version/systemctl",
+        "text": "装完要确认二进制和服务是否按预期出现。"
+      }
+    ]
+  },
+  {
+    "id": "Fn_uYKigJRgb7r_iYGVBr",
+    "label": "Disks and Filesystems",
+    "heading": "Disks and Filesystems：把磁盘空间接到目录上",
+    "subheading": "Disks and Filesystems 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Disks and Filesystems 相关问题。这里要学会把它放回真实机器：磁盘、分区和挂载点、命令输入、输出结果和风险边界。",
+    "core": "Disks and Filesystems = 用 disk -> partition -> fs -> mount 围绕「磁盘、分区和挂载点」完成「格式化、挂载、扩容」，目标是应用有稳定存储空间。",
+    "metaphor": "它像给服务器接硬盘柜：盘、分区、文件系统、挂载点缺一环，应用就看不到空间。",
+    "mistake": "不要把 Disks and Filesystems 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Disks and Filesystems 容易和相邻命令混在一起：它的边界是「格式化、挂载、扩容」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `disk -> partition -> fs -> mount` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "disk -> partition -> fs -> mount",
+    "subject": "磁盘、分区和挂载点",
+    "action": "格式化、挂载、扩容",
+    "result": "应用有稳定存储空间",
+    "risk": "格式化错盘或 fstab 写错",
+    "diagram": "disk",
+    "route": [
+      {
+        "label": "识别设备",
+        "title": "lsblk/df 看盘和挂载",
+        "text": "先分清物理盘、分区、文件系统和挂载点。"
+      },
+      {
+        "label": "建立结构",
+        "title": "disk -> partition -> fs -> mount",
+        "text": "需要分区、格式化或 LVM 时按层操作。"
+      },
+      {
+        "label": "挂到目录",
+        "title": "mount 或 fstab",
+        "text": "应用访问的是目录，不是裸盘。"
+      },
+      {
+        "label": "确认容量",
+        "title": "df -h / df -i",
+        "text": "空间够不够和 inode 够不够都要看。"
+      }
+    ]
+  },
+  {
+    "id": "2oQiuQ2j02SCt9t5eV6hg",
+    "label": "Package Repositories",
+    "heading": "Package Repositories：从可信来源安装软件",
+    "subheading": "Package Repositories 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Package Repositories 相关问题。这里要学会把它放回真实机器：软件包和仓库、命令输入、输出结果和风险边界。",
+    "core": "Package Repositories = 用 sources.list / repo file 围绕「软件包和仓库」完成「查找、安装、升级、移除」，目标是依赖可复现安装。",
+    "metaphor": "它像从官方仓库领工具：先看来源和版本，再安装、升级或移除。",
+    "mistake": "不要把 Package Repositories 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Package Repositories 容易和相邻命令混在一起：它的边界是「查找、安装、升级、移除」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `sources.list / repo file` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "sources.list / repo file",
+    "subject": "软件包和仓库",
+    "action": "查找、安装、升级、移除",
+    "result": "依赖可复现安装",
+    "risk": "混源或升级破坏版本",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "查来源",
+        "title": "确认仓库和包名",
+        "text": "安装前先知道包来自哪个 repository。"
+      },
+      {
+        "label": "看版本",
+        "title": "sources.list / repo file",
+        "text": "生产环境尤其要关注版本、依赖和升级影响。"
+      },
+      {
+        "label": "执行安装",
+        "title": "install/remove/upgrade",
+        "text": "包管理器会处理依赖，但不会替你判断兼容性。"
+      },
+      {
+        "label": "验证命令",
+        "title": "which/version/systemctl",
+        "text": "装完要确认二进制和服务是否按预期出现。"
+      }
+    ]
+  },
+  {
+    "id": "eKyMZn30UxQeBZQ7FxFbF",
+    "label": "Snap",
+    "heading": "Snap：从可信来源安装软件",
+    "subheading": "Snap 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Snap 相关问题。这里要学会把它放回真实机器：软件包和仓库、命令输入、输出结果和风险边界。",
+    "core": "Snap = 用 snap install app 围绕「软件包和仓库」完成「查找、安装、升级、移除」，目标是依赖可复现安装。",
+    "metaphor": "它像从官方仓库领工具：先看来源和版本，再安装、升级或移除。",
+    "mistake": "不要把 Snap 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Snap 容易和相邻命令混在一起：它的边界是「查找、安装、升级、移除」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `snap install app` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "snap install app",
+    "subject": "软件包和仓库",
+    "action": "查找、安装、升级、移除",
+    "result": "依赖可复现安装",
+    "risk": "混源或升级破坏版本",
+    "diagram": "move",
+    "route": [
+      {
+        "label": "查来源",
+        "title": "确认仓库和包名",
+        "text": "安装前先知道包来自哪个 repository。"
+      },
+      {
+        "label": "看版本",
+        "title": "snap install app",
+        "text": "生产环境尤其要关注版本、依赖和升级影响。"
+      },
+      {
+        "label": "执行安装",
+        "title": "install/remove/upgrade",
+        "text": "包管理器会处理依赖，但不会替你判断兼容性。"
+      },
+      {
+        "label": "验证命令",
+        "title": "which/version/systemctl",
+        "text": "装完要确认二进制和服务是否按预期出现。"
+      }
+    ]
+  },
+  {
+    "id": "ru7mpLQZKE1QxAdiA1sS3",
+    "label": "Logs",
+    "heading": "Logs：用 systemd 管住后台服务",
+    "subheading": "Logs 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Logs 相关问题。这里要学会把它放回真实机器：systemd 服务、命令输入、输出结果和风险边界。",
+    "core": "Logs = 用 journalctl / tail -f 围绕「systemd 服务」完成「启动、停止、看日志」，目标是服务可控、故障可查。",
+    "metaphor": "它像后台常驻岗位：systemd 负责让服务按规则启动、失败记录、开机接班。",
+    "mistake": "不要把 Logs 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Logs 容易和相邻命令混在一起：它的边界是「启动、停止、看日志」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `journalctl / tail -f` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "journalctl / tail -f",
+    "subject": "systemd 服务",
+    "action": "启动、停止、看日志",
+    "result": "服务可控、故障可查",
+    "risk": "只看 active 不看日志",
+    "diagram": "service",
+    "route": [
+      {
+        "label": "找 unit",
+        "title": "确认服务名和 unit 文件",
+        "text": "systemd 管的是 unit，不只是一个进程名。"
+      },
+      {
+        "label": "看状态",
+        "title": "journalctl / tail -f",
+        "text": "status 看状态，journalctl 看原因。"
+      },
+      {
+        "label": "控制生命周期",
+        "title": "start/stop/restart/enable",
+        "text": "区分现在启动和开机自启。"
+      },
+      {
+        "label": "读日志",
+        "title": "用日志解释失败",
+        "text": "服务失败优先看日志，不要反复重启碰运气。"
+      }
+    ]
+  },
+  {
+    "id": "Z23eJZjmWoeXQuezR9AhG",
+    "label": "Finding & Installing Packages",
+    "heading": "Finding & Installing Packages：从可信来源安装软件",
+    "subheading": "Finding & Installing Packages 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Finding & Installing Packages 相关问题。这里要学会把它放回真实机器：软件包和仓库、命令输入、输出结果和风险边界。",
+    "core": "Finding & Installing Packages = 用 apt search && apt install 围绕「软件包和仓库」完成「查找、安装、升级、移除」，目标是依赖可复现安装。",
+    "metaphor": "它像从官方仓库领工具：先看来源和版本，再安装、升级或移除。",
+    "mistake": "不要把 Finding & Installing Packages 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Finding & Installing Packages 容易和相邻命令混在一起：它的边界是「查找、安装、升级、移除」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `apt search && apt install` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "apt search && apt install",
+    "subject": "软件包和仓库",
+    "action": "查找、安装、升级、移除",
+    "result": "依赖可复现安装",
+    "risk": "混源或升级破坏版本",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "查来源",
+        "title": "确认仓库和包名",
+        "text": "安装前先知道包来自哪个 repository。"
+      },
+      {
+        "label": "看版本",
+        "title": "apt search && apt install",
+        "text": "生产环境尤其要关注版本、依赖和升级影响。"
+      },
+      {
+        "label": "执行安装",
+        "title": "install/remove/upgrade",
+        "text": "包管理器会处理依赖，但不会替你判断兼容性。"
+      },
+      {
+        "label": "验证命令",
+        "title": "which/version/systemctl",
+        "text": "装完要确认二进制和服务是否按预期出现。"
+      }
+    ]
+  },
+  {
+    "id": "o5lSQFW-V_PqndGqo1mp3",
+    "label": "Boot Loaders",
+    "heading": "Boot Loaders：看懂进程在机器上怎么跑",
+    "subheading": "Boot Loaders 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Boot Loaders 相关问题。这里要学会把它放回真实机器：进程和负载、命令输入、输出结果和风险边界。",
+    "core": "Boot Loaders = 用 GRUB -> kernel 围绕「进程和负载」完成「查看、调度、结束」，目标是定位谁在占 CPU/内存。",
+    "metaphor": "它像机房值班表：每个进程都有工号、状态和占用资源，处理前先看清是谁。",
+    "mistake": "不要把 Boot Loaders 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Boot Loaders 容易和相邻命令混在一起：它的边界是「查看、调度、结束」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `GRUB -> kernel` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "GRUB -> kernel",
+    "subject": "进程和负载",
+    "action": "查看、调度、结束",
+    "result": "定位谁在占 CPU/内存",
+    "risk": "误杀关键进程",
+    "diagram": "boot",
+    "route": [
+      {
+        "label": "列进程",
+        "title": "先看 PID/用户/命令",
+        "text": "不要只凭名字杀进程，先确认 PID、父子关系和资源占用。"
+      },
+      {
+        "label": "看状态",
+        "title": "GRUB -> kernel",
+        "text": "结合 CPU、内存、状态和启动时间判断。"
+      },
+      {
+        "label": "发信号",
+        "title": "优先 TERM，再考虑 KILL",
+        "text": "TERM 给进程收尾机会，KILL 是最后手段。"
+      },
+      {
+        "label": "复查影响",
+        "title": "确认服务和端口恢复",
+        "text": "处理进程后要看系统是否回到预期。"
+      }
+    ]
+  },
+  {
+    "id": "DQEa8LrJ9TVW4ULBE4aHJ",
+    "label": "Booting Linux",
+    "heading": "Booting Linux：看懂 Linux 开机接力",
+    "subheading": "Booting Linux 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Booting Linux 相关问题。这里要学会把它放回真实机器：启动链路、命令输入、输出结果和风险边界。",
+    "core": "Booting Linux = 用 firmware -> bootloader -> kernel -> systemd 围绕「启动链路」完成「从固件加载到 systemd」，目标是知道系统卡在哪一步。",
+    "metaphor": "它像开机接力赛：固件、引导器、内核、init 任何一棒掉链子都进不了系统。",
+    "mistake": "不要把 Booting Linux 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Booting Linux 容易和相邻命令混在一起：它的边界是「从固件加载到 systemd」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `firmware -> bootloader -> kernel -> systemd` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "firmware -> bootloader -> kernel -> systemd",
+    "subject": "启动链路",
+    "action": "从固件加载到 systemd",
+    "result": "知道系统卡在哪一步",
+    "risk": "乱改引导配置",
+    "diagram": "boot",
+    "route": [
+      {
+        "label": "看接力链",
+        "title": "固件、引导器、内核、init",
+        "text": "启动失败要定位卡在哪一棒。"
+      },
+      {
+        "label": "读配置",
+        "title": "firmware -> bootloader -> kernel -> systemd",
+        "text": "引导配置和内核参数要谨慎改。"
+      },
+      {
+        "label": "看日志",
+        "title": "journalctl -b",
+        "text": "启动后的问题用本次启动日志排查。"
+      },
+      {
+        "label": "准备回退",
+        "title": "保留旧内核或救援入口",
+        "text": "引导层改错会进不了系统。"
+      }
+    ]
+  },
+  {
+    "id": "48wAoAAlCNt3j5mBpKTWC",
+    "label": "Listing Installed Packages",
+    "heading": "Listing Installed Packages：从可信来源安装软件",
+    "subheading": "Listing Installed Packages 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Listing Installed Packages 相关问题。这里要学会把它放回真实机器：软件包和仓库、命令输入、输出结果和风险边界。",
+    "core": "Listing Installed Packages = 用 apt list --installed 围绕「软件包和仓库」完成「查找、安装、升级、移除」，目标是依赖可复现安装。",
+    "metaphor": "它像从官方仓库领工具：先看来源和版本，再安装、升级或移除。",
+    "mistake": "不要把 Listing Installed Packages 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Listing Installed Packages 容易和相邻命令混在一起：它的边界是「查找、安装、升级、移除」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `apt list --installed` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "apt list --installed",
+    "subject": "软件包和仓库",
+    "action": "查找、安装、升级、移除",
+    "result": "依赖可复现安装",
+    "risk": "混源或升级破坏版本",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "查来源",
+        "title": "确认仓库和包名",
+        "text": "安装前先知道包来自哪个 repository。"
+      },
+      {
+        "label": "看版本",
+        "title": "apt list --installed",
+        "text": "生产环境尤其要关注版本、依赖和升级影响。"
+      },
+      {
+        "label": "执行安装",
+        "title": "install/remove/upgrade",
+        "text": "包管理器会处理依赖，但不会替你判断兼容性。"
+      },
+      {
+        "label": "验证命令",
+        "title": "which/version/systemctl",
+        "text": "装完要确认二进制和服务是否按预期出现。"
+      }
+    ]
+  },
+  {
+    "id": "0pciSsiQqIGJh3x8465_s",
+    "label": "TCP/IP Stack",
+    "heading": "TCP/IP Stack：从地址到包路径排查网络",
+    "subheading": "TCP/IP Stack 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 TCP/IP Stack 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "TCP/IP Stack = 用 app -> TCP -> IP -> NIC 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 TCP/IP Stack 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "TCP/IP Stack 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `app -> TCP -> IP -> NIC` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "app -> TCP -> IP -> NIC",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "ssh",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "app -> TCP -> IP -> NIC",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "xEHiB-egkkcBuZmgMoqHT",
+    "label": "Install / Remove / Upgrade Packages",
+    "heading": "Install / Remove / Upgrade Packages：从可信来源安装软件",
+    "subheading": "Install / Remove / Upgrade Packages 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Install / Remove / Upgrade Packages 相关问题。这里要学会把它放回真实机器：软件包和仓库、命令输入、输出结果和风险边界。",
+    "core": "Install / Remove / Upgrade Packages = 用 install/remove/upgrade 围绕「软件包和仓库」完成「查找、安装、升级、移除」，目标是依赖可复现安装。",
+    "metaphor": "它像从官方仓库领工具：先看来源和版本，再安装、升级或移除。",
+    "mistake": "不要把 Install / Remove / Upgrade Packages 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Install / Remove / Upgrade Packages 容易和相邻命令混在一起：它的边界是「查找、安装、升级、移除」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `install/remove/upgrade` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "install/remove/upgrade",
+    "subject": "软件包和仓库",
+    "action": "查找、安装、升级、移除",
+    "result": "依赖可复现安装",
+    "risk": "混源或升级破坏版本",
+    "diagram": "package",
+    "route": [
+      {
+        "label": "查来源",
+        "title": "确认仓库和包名",
+        "text": "安装前先知道包来自哪个 repository。"
+      },
+      {
+        "label": "看版本",
+        "title": "install/remove/upgrade",
+        "text": "生产环境尤其要关注版本、依赖和升级影响。"
+      },
+      {
+        "label": "执行安装",
+        "title": "install/remove/upgrade",
+        "text": "包管理器会处理依赖，但不会替你判断兼容性。"
+      },
+      {
+        "label": "验证命令",
+        "title": "which/version/systemctl",
+        "text": "装完要确认二进制和服务是否按预期出现。"
+      }
+    ]
+  },
+  {
+    "id": "Xszo9vXuwwXZo26seHehD",
+    "label": "Subnetting",
+    "heading": "Subnetting：从地址到包路径排查网络",
+    "subheading": "Subnetting 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Subnetting 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "Subnetting = 用 CIDR /24 -> host range 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 Subnetting 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Subnetting 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `CIDR /24 -> host range` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "CIDR /24 -> host range",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "CIDR /24 -> host range",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "4ees23q281J1DPVAc7iXd",
+    "label": "Ethernet & arp/rarp",
+    "heading": "Ethernet & arp/rarp：从地址到包路径排查网络",
+    "subheading": "Ethernet & arp/rarp 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Ethernet & arp/rarp 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "Ethernet & arp/rarp = 用 ARP: IP -> MAC 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 Ethernet & arp/rarp 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Ethernet & arp/rarp 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ARP: IP -> MAC` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ARP: IP -> MAC",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "ARP: IP -> MAC",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "Mb42VFjCzMZn_PovKIfKx",
+    "label": "Networking",
+    "heading": "Networking：从地址到包路径排查网络",
+    "subheading": "Networking 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Networking 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "Networking = 用 ip addr / ip route / ss 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 Networking 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Networking 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ip addr / ip route / ss` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ip addr / ip route / ss",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "network",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "ip addr / ip route / ss",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "-pW7R76yNIeGf7TQoX4QL",
+    "label": "Literals",
+    "heading": "Literals：把命令写成可靠脚本",
+    "subheading": "Literals 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Literals 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Literals = 用 \\",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Literals 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Literals 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `\\",
+    "command": "\\",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      },
+      {
+        "label": "处理失败",
+        "title": "检查退出码和 set -e",
+        "text": "脚本最怕前一步失败后还继续执行。"
+      },
+      {
+        "label": "调试输出",
+        "title": "set -x 或 echo 关键变量",
+        "text": "调试时让脚本把关键路径说出来。"
+      }
+    ]
+  },
+  {
+    "id": "JyxvZOb7iusOSUYSlniGl",
+    "label": "Variables",
+    "heading": "Variables：把命令写成可靠脚本",
+    "subheading": "Variables 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Variables 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Variables = 用 name=value 围绕「Shell 脚本」完成「变量、条件、循环和调试」，目标是把重复操作变成可靠脚本。",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Variables 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Variables 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `name=value` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "name=value",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      },
+      {
+        "label": "写逻辑",
+        "title": "name=value",
+        "text": "变量、条件和循环只服务一个明确任务。"
+      },
+      {
+        "label": "处理失败",
+        "title": "检查退出码和 set -e",
+        "text": "脚本最怕前一步失败后还继续执行。"
+      },
+      {
+        "label": "调试输出",
+        "title": "set -x 或 echo 关键变量",
+        "text": "调试时让脚本把关键路径说出来。"
+      }
+    ]
+  },
+  {
+    "id": "X6Jw95kbyPgsDNRhvkQP9",
+    "label": "DHCP",
+    "heading": "DHCP：从地址到包路径排查网络",
+    "subheading": "DHCP 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 DHCP 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "DHCP = 用 discover -> offer -> request -> ack 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 DHCP 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "DHCP 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `discover -> offer -> request -> ack` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "discover -> offer -> request -> ack",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "discover -> offer -> request -> ack",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "D0yUzzaJsfhtdBWMtquAj",
+    "label": "IP Routing",
+    "heading": "IP Routing：从地址到包路径排查网络",
+    "subheading": "IP Routing 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 IP Routing 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "IP Routing = 用 route table -> next hop 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 IP Routing 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "IP Routing 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `route table -> next hop` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "route table -> next hop",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "route table -> next hop",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "WJT-yrMq8cEI87RHWA2jY",
+    "label": "Loops",
+    "heading": "Loops：把命令写成可靠脚本",
+    "subheading": "Loops 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Loops 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Loops = 用 for / while 围绕「Shell 脚本」完成「变量、条件、循环和调试」，目标是把重复操作变成可靠脚本。",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Loops 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Loops 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `for / while` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "for / while",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      },
+      {
+        "label": "写逻辑",
+        "title": "for / while",
+        "text": "变量、条件和循环只服务一个明确任务。"
+      },
+      {
+        "label": "处理失败",
+        "title": "检查退出码和 set -e",
+        "text": "脚本最怕前一步失败后还继续执行。"
+      },
+      {
+        "label": "调试输出",
+        "title": "set -x 或 echo 关键变量",
+        "text": "调试时让脚本把关键路径说出来。"
+      }
+    ]
+  },
+  {
+    "id": "rQxfp7UWqN72iqewZhOdc",
+    "label": "Conditionals",
+    "heading": "Conditionals：把命令写成可靠脚本",
+    "subheading": "Conditionals 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Conditionals 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Conditionals = 用 if [ condition ]; then 围绕「Shell 脚本」完成「变量、条件、循环和调试」，目标是把重复操作变成可靠脚本。",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Conditionals 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Conditionals 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `if [ condition ]; then` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "if [ condition ]; then",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "script",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      }
+    ]
+  },
+  {
+    "id": "f5oQYhmjNM2_FD7Qe1zGK",
+    "label": "DNS Resolution",
+    "heading": "DNS Resolution：从地址到包路径排查网络",
+    "subheading": "DNS Resolution 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 DNS Resolution 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "DNS Resolution = 用 name -> resolver -> IP 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 DNS Resolution 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "DNS Resolution 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `name -> resolver -> IP` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "name -> resolver -> IP",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "network",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "name -> resolver -> IP",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "rOGnHbGIr3xPCFdpkqoeK",
+    "label": "Debugging",
+    "heading": "Debugging：把命令写成可靠脚本",
+    "subheading": "Debugging 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Debugging 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Debugging = 用 set -x / logs / exit code 围绕「Shell 脚本」完成「变量、条件、循环和调试」，目标是把重复操作变成可靠脚本。",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Debugging 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Debugging 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `set -x / logs / exit code` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "set -x / logs / exit code",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "trouble",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      },
+      {
+        "label": "写逻辑",
+        "title": "set -x / logs / exit code",
+        "text": "变量、条件和循环只服务一个明确任务。"
+      },
+      {
+        "label": "处理失败",
+        "title": "检查退出码和 set -e",
+        "text": "脚本最怕前一步失败后还继续执行。"
+      },
+      {
+        "label": "调试输出",
+        "title": "set -x 或 echo 关键变量",
+        "text": "调试时让脚本把关键路径说出来。"
+      }
+    ]
+  },
+  {
+    "id": "bZ8Yj6QfBeDdh8hRM_aZs",
+    "label": "Netfilter",
+    "heading": "Netfilter：从地址到包路径排查网络",
+    "subheading": "Netfilter 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Netfilter 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "Netfilter = 用 iptables/nft rules 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 Netfilter 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Netfilter 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `iptables/nft rules` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "iptables/nft rules",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "firewall",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "iptables/nft rules",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "uk6UMuI8Uhf02TBAGVeLS",
+    "label": "SSH",
+    "heading": "SSH：从地址到包路径排查网络",
+    "subheading": "SSH 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 SSH 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "SSH = 用 ssh user@host 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 SSH 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "SSH 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ssh user@host` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ssh user@host",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "ssh",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "ssh user@host",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "tVrbVcNEfc11FbEUoO2Dk",
+    "label": "File Transfer",
+    "heading": "File Transfer：从地址到包路径排查网络",
+    "subheading": "File Transfer 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 File Transfer 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "File Transfer = 用 scp / rsync / sftp 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 File Transfer 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "File Transfer 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `scp / rsync / sftp` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "scp / rsync / sftp",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "ssh",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "scp / rsync / sftp",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "4tFZ1PLpz50bddf7zSFrW",
+    "label": "Shell Programming",
+    "heading": "Shell Programming：把命令写成可靠脚本",
+    "subheading": "Shell Programming 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Shell Programming 相关问题。这里要学会把它放回真实机器：Shell 脚本、命令输入、输出结果和风险边界。",
+    "core": "Shell Programming = 用 script + variables + exit codes 围绕「Shell 脚本」完成「变量、条件、循环和调试」，目标是把重复操作变成可靠脚本。",
+    "metaphor": "它像写服务器操作清单：变量填参数，条件做判断，循环处理一批对象。",
+    "mistake": "不要把 Shell Programming 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Shell Programming 容易和相邻命令混在一起：它的边界是「变量、条件、循环和调试」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `script + variables + exit codes` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "script + variables + exit codes",
+    "subject": "Shell 脚本",
+    "action": "变量、条件、循环和调试",
+    "result": "把重复操作变成可靠脚本",
+    "risk": "没处理退出码就继续执行",
+    "diagram": "script",
+    "route": [
+      {
+        "label": "定输入",
+        "title": "脚本从参数/变量/文件拿数据",
+        "text": "先写清输入来源，别把环境假设写死。"
+      },
+      {
+        "label": "写逻辑",
+        "title": "script + variables + exit codes",
+        "text": "变量、条件和循环只服务一个明确任务。"
+      },
+      {
+        "label": "处理失败",
+        "title": "检查退出码和 set -e",
+        "text": "脚本最怕前一步失败后还继续执行。"
+      },
+      {
+        "label": "调试输出",
+        "title": "set -x 或 echo 关键变量",
+        "text": "调试时让脚本把关键路径说出来。"
+      }
+    ]
+  },
+  {
+    "id": "Ymf3u_sG1dyt8ZR_LbwqJ",
+    "label": "ICMP",
+    "heading": "ICMP：从地址到包路径排查网络",
+    "subheading": "ICMP 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 ICMP 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "ICMP = 用 echo request / reply 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 ICMP 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "ICMP 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `echo request / reply` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "echo request / reply",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "map",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "echo request / reply",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "Uc36t92UAlILgM3_XxcMG",
+    "label": "ping",
+    "heading": "ping：从地址到包路径排查网络",
+    "subheading": "ping 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 ping 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "ping = 用 ping host 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 ping 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "ping 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ping host` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ping host",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "filter",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "ping host",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "QgfenmhMc18cU_JngQ1n0",
+    "label": "ulimits",
+    "heading": "ulimits：把权限边界看清楚",
+    "subheading": "ulimits 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 ulimits 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "ulimits = 用 ulimit -n 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 ulimits 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "ulimits 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `ulimit -n` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "ulimit -n",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "permission",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "ulimit -n",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "23lsrUw8ux6ZP9JlDNNu2",
+    "label": "cgroups",
+    "heading": "cgroups：把权限边界看清楚",
+    "subheading": "cgroups 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 cgroups 相关问题。这里要学会把它放回真实机器：用户、组和权限位、命令输入、输出结果和风险边界。",
+    "core": "cgroups = 用 cpu/memory limits 围绕「用户、组和权限位」完成「授权或切换身份」，目标是进程能读写该读写的资源。",
+    "metaphor": "它像门禁卡系统：用户是谁、属于哪个组、钥匙能开哪些门，三件事必须对上。",
+    "mistake": "不要把 cgroups 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "cgroups 容易和相邻命令混在一起：它的边界是「授权或切换身份」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `cpu/memory limits` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "cpu/memory limits",
+    "subject": "用户、组和权限位",
+    "action": "授权或切换身份",
+    "result": "进程能读写该读写的资源",
+    "risk": "给太大权限或锁死自己",
+    "diagram": "user",
+    "route": [
+      {
+        "label": "认身份",
+        "title": "先看 whoami/id/groups",
+        "text": "权限问题先确认当前用户和组，不要一上来 sudo。"
+      },
+      {
+        "label": "看权限",
+        "title": "读 owner/group/mode",
+        "text": "把 rwx 看成三组门禁：所有者、组、其他人。"
+      },
+      {
+        "label": "最小授权",
+        "title": "cpu/memory limits",
+        "text": "只给需要的读写执行权限。"
+      },
+      {
+        "label": "验证访问",
+        "title": "换用户或命令重试",
+        "text": "权限修改后要用实际访问结果验证。"
+      }
+    ]
+  },
+  {
+    "id": "BnB3Rirh4R7a7LW7-k-95",
+    "label": "traceroute",
+    "heading": "traceroute：把文本流拆成可用信息",
+    "subheading": "traceroute 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 traceroute 相关问题。这里要学会把它放回真实机器：文本流、命令输入、输出结果和风险边界。",
+    "core": "traceroute = 用 hop 1 -> hop 2 -> target 围绕「文本流」完成「筛选、切列、排序、合并」，目标是从日志里提取答案。",
+    "metaphor": "它像在流水线上分拣日志纸条：每个命令只做一小步，管道把小步串成答案。",
+    "mistake": "不要把 traceroute 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "traceroute 容易和相邻命令混在一起：它的边界是「筛选、切列、排序、合并」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `hop 1 -> hop 2 -> target` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "hop 1 -> hop 2 -> target",
+    "subject": "文本流",
+    "action": "筛选、切列、排序、合并",
+    "result": "从日志里提取答案",
+    "risk": "管道顺序错导致结果假象",
+    "diagram": "table",
+    "route": [
+      {
+        "label": "看输入",
+        "title": "确认每行长什么样",
+        "text": "文本处理前先抽样看几行，知道分隔符和列含义。"
+      },
+      {
+        "label": "选工具",
+        "title": "hop 1 -> hop 2 -> target",
+        "text": "每个工具只做一件小事：筛选、切列、排序或统计。"
+      },
+      {
+        "label": "接管道",
+        "title": "把上一步输出交给下一步",
+        "text": "管道顺序决定结果，先小样本验证再跑大文件。"
+      },
+      {
+        "label": "核结果",
+        "title": "用 head/wc 对照",
+        "text": "防止命令看似成功但漏行、错列或排序前提不成立。"
+      }
+    ]
+  },
+  {
+    "id": "bdQNcr1sj94aX_gjwf2Fa",
+    "label": "Troubleshooting",
+    "heading": "Troubleshooting：按证据排查服务器问题",
+    "subheading": "Troubleshooting 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Troubleshooting 相关问题。这里要学会把它放回真实机器：服务器状态、命令输入、输出结果和风险边界。",
+    "core": "Troubleshooting = 用 observe -> narrow -> change 围绕「服务器状态」完成「观察、定位、验证」，目标是排障时少猜多证据。",
+    "metaphor": "它像值班排障：先看仪表，再缩小范围，最后只改最小必要配置。",
+    "mistake": "不要把 Troubleshooting 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Troubleshooting 容易和相邻命令混在一起：它的边界是「观察、定位、验证」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `observe -> narrow -> change` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "observe -> narrow -> change",
+    "subject": "服务器状态",
+    "action": "观察、定位、验证",
+    "result": "排障时少猜多证据",
+    "risk": "没看证据就改配置",
+    "diagram": "trouble",
+    "route": [
+      {
+        "label": "观察现象",
+        "title": "先收集命令输出和日志",
+        "text": "排障不是猜答案，而是收集证据。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "observe -> narrow -> change",
+        "text": "每次只验证一个方向。"
+      },
+      {
+        "label": "最小改动",
+        "title": "改配置前保留现场",
+        "text": "线上只做能解释的最小变更。"
+      },
+      {
+        "label": "复盘记录",
+        "title": "写下原因和命令",
+        "text": "让下次相同问题更快定位。"
+      }
+    ]
+  },
+  {
+    "id": "bVCwRoFsYb3HD8X4xuKOo",
+    "label": "Container Runtime",
+    "heading": "Container Runtime：看懂容器的隔离边界",
+    "subheading": "Container Runtime 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Container Runtime 相关问题。这里要学会把它放回真实机器：镜像、容器和运行时、命令输入、输出结果和风险边界。",
+    "core": "Container Runtime = 用 containerd / runc 围绕「镜像、容器和运行时」完成「隔离进程和限制资源」，目标是应用可重复运行。",
+    "metaphor": "它像把应用装进透明盒子：盒子共享内核，但用命名空间和资源限制隔开。",
+    "mistake": "不要把 Container Runtime 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Container Runtime 容易和相邻命令混在一起：它的边界是「隔离进程和限制资源」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `containerd / runc` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "containerd / runc",
+    "subject": "镜像、容器和运行时",
+    "action": "隔离进程和限制资源",
+    "result": "应用可重复运行",
+    "risk": "把容器当虚拟机",
+    "diagram": "container",
+    "route": [
+      {
+        "label": "看镜像",
+        "title": "镜像包含应用和依赖",
+        "text": "镜像是模板，容器是运行实例。"
+      },
+      {
+        "label": "看隔离",
+        "title": "containerd / runc",
+        "text": "namespace 隔离视图，cgroup 限制资源。"
+      },
+      {
+        "label": "连外界",
+        "title": "端口、卷、环境变量",
+        "text": "容器要通过明确通道和宿主机/网络交互。"
+      },
+      {
+        "label": "排故障",
+        "title": "logs/exec/inspect",
+        "text": "容器异常先看日志、配置和资源限制。"
+      }
+    ]
+  },
+  {
+    "id": "yrxNYMluJ9OAQCKuM5W1u",
+    "label": "netstat",
+    "heading": "netstat：从地址到包路径排查网络",
+    "subheading": "netstat 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 netstat 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "netstat = 用 netstat -tunlp 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 netstat 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "netstat 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `netstat -tunlp` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "netstat -tunlp",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "firewall",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "netstat -tunlp",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "MfengY3ouz6sSOx3PXYf8",
+    "label": "Docker",
+    "heading": "Docker：看懂容器的隔离边界",
+    "subheading": "Docker 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Docker 相关问题。这里要学会把它放回真实机器：镜像、容器和运行时、命令输入、输出结果和风险边界。",
+    "core": "Docker = 用 image -> container 围绕「镜像、容器和运行时」完成「隔离进程和限制资源」，目标是应用可重复运行。",
+    "metaphor": "它像把应用装进透明盒子：盒子共享内核，但用命名空间和资源限制隔开。",
+    "mistake": "不要把 Docker 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Docker 容易和相邻命令混在一起：它的边界是「隔离进程和限制资源」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `image -> container` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "image -> container",
+    "subject": "镜像、容器和运行时",
+    "action": "隔离进程和限制资源",
+    "result": "应用可重复运行",
+    "risk": "把容器当虚拟机",
+    "diagram": "container",
+    "route": [
+      {
+        "label": "看镜像",
+        "title": "镜像包含应用和依赖",
+        "text": "镜像是模板，容器是运行实例。"
+      },
+      {
+        "label": "看隔离",
+        "title": "image -> container",
+        "text": "namespace 隔离视图，cgroup 限制资源。"
+      },
+      {
+        "label": "连外界",
+        "title": "端口、卷、环境变量",
+        "text": "容器要通过明确通道和宿主机/网络交互。"
+      },
+      {
+        "label": "排故障",
+        "title": "logs/exec/inspect",
+        "text": "容器异常先看日志、配置和资源限制。"
+      }
+    ]
+  },
+  {
+    "id": "7seneb4TWts4v1_x8xlcZ",
+    "label": "Packet Analysis",
+    "heading": "Packet Analysis：从地址到包路径排查网络",
+    "subheading": "Packet Analysis 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Packet Analysis 相关问题。这里要学会把它放回真实机器：网络包和地址、命令输入、输出结果和风险边界。",
+    "core": "Packet Analysis = 用 tcpdump / wireshark 围绕「网络包和地址」完成「解析、路由、连接、抓包」，目标是定位网络不通的位置。",
+    "metaphor": "它像查快递路线：名字解析成地址，路由决定下一站，防火墙决定让不让过。",
+    "mistake": "不要把 Packet Analysis 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Packet Analysis 容易和相邻命令混在一起：它的边界是「解析、路由、连接、抓包」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `tcpdump / wireshark` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "tcpdump / wireshark",
+    "subject": "网络包和地址",
+    "action": "解析、路由、连接、抓包",
+    "result": "定位网络不通的位置",
+    "risk": "把 DNS、路由、防火墙混为一谈",
+    "diagram": "network",
+    "route": [
+      {
+        "label": "定位层级",
+        "title": "名字、地址、路由、端口、防火墙",
+        "text": "网络问题先判断卡在哪一层。"
+      },
+      {
+        "label": "执行探测",
+        "title": "tcpdump / wireshark",
+        "text": "用最小命令验证一个假设。"
+      },
+      {
+        "label": "读路径",
+        "title": "看下一跳、延迟或拒绝原因",
+        "text": "输出里的 IP、端口、状态比感觉可靠。"
+      },
+      {
+        "label": "缩小范围",
+        "title": "从本机到目标逐段排查",
+        "text": "先本机配置，再网关，再目标服务。"
+      }
+    ]
+  },
+  {
+    "id": "3OpGaQhyNtk1n1MLp-tlb",
+    "label": "Containerization",
+    "heading": "Containerization：看懂容器的隔离边界",
+    "subheading": "Containerization 的重点不是背命令，而是知道它在 Linux 机器上改变了什么、输出说明什么。",
+    "scene": "你在排查一台后端服务器，遇到 Containerization 相关问题。这里要学会把它放回真实机器：镜像、容器和运行时、命令输入、输出结果和风险边界。",
+    "core": "Containerization = 用 image + namespace + cgroup 围绕「镜像、容器和运行时」完成「隔离进程和限制资源」，目标是应用可重复运行。",
+    "metaphor": "它像把应用装进透明盒子：盒子共享内核，但用命名空间和资源限制隔开。",
+    "mistake": "不要把 Containerization 当成孤立术语。先看对象属于文件、文本流、进程、权限、服务、磁盘还是网络，再决定命令怎么用。",
+    "confusion": "Containerization 容易和相邻命令混在一起：它的边界是「隔离进程和限制资源」，不是替代整条排障链路。",
+    "experiment": "在本机或容器里执行 `image + namespace + cgroup` 的安全版本，先用小样本观察输出；涉及删除、权限、磁盘或服务时只在临时目录/测试服务上练。",
+    "command": "image + namespace + cgroup",
+    "subject": "镜像、容器和运行时",
+    "action": "隔离进程和限制资源",
+    "result": "应用可重复运行",
+    "risk": "把容器当虚拟机",
+    "diagram": "container",
+    "route": [
+      {
+        "label": "看镜像",
+        "title": "镜像包含应用和依赖",
+        "text": "镜像是模板，容器是运行实例。"
+      },
+      {
+        "label": "看隔离",
+        "title": "image + namespace + cgroup",
+        "text": "namespace 隔离视图，cgroup 限制资源。"
+      },
+      {
+        "label": "连外界",
+        "title": "端口、卷、环境变量",
+        "text": "容器要通过明确通道和宿主机/网络交互。"
+      },
+      {
+        "label": "排故障",
+        "title": "logs/exec/inspect",
+        "text": "容器异常先看日志、配置和资源限制。"
+      }
+    ]
+  }
+]

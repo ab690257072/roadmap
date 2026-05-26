@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 8766",
     "build": "tsc && vite build",
+    "import:roadmaps": "node scripts/import-roadmaps.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 8767"
   },
   "dependencies": {
+    "@excalidraw/excalidraw": "^0.18.1",
     "@vitejs/plugin-react": "^4.3.4",
     "antd": "^6.1.1",
     "react": "^18.3.1",
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3"
+    "@types/react-dom": "^19.2.3",
+    "playwright": "^1.52.0"
   }
 }
