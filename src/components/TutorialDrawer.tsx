@@ -2,7 +2,10 @@ import { useMemo } from 'react';
 import { Alert, Button, Card, Collapse, Drawer, Flex, List, Space, Steps, Tabs, Typography } from 'antd';
 import type { CollapseProps, TabsProps } from 'antd';
 import type { DeepLesson, Tutorial } from '../roadmaps/types';
-import { hasTeachingLesson } from '../roadmaps/teaching-registry';
+import { getNodeResource } from '../roadmaps/resource-registry';
+import { getDeepTutorial } from '../roadmaps/deep-registry';
+import type { NodeResource } from '../roadmaps/resource-types';
+import { DeepLearningPanel } from './DeepLearningPanel';
 import { LearningLab } from './LearningLab';
 import { TutorialIllustration } from './TutorialIllustration';
 
@@ -40,6 +43,82 @@ function inferCategory(text: string) {
   return 'general';
 }
 
+function NodeResourcePanel({ resource }: { resource: NodeResource }) {
+  const sections: { title: string; items: React.ReactNode[] }[] = [];
+
+  if (resource.docs && resource.docs.length > 0) {
+    sections.push({
+      title: '官方文档',
+      items: resource.docs.map((doc, i) => (
+        <List.Item key={i}>
+          <a href={doc.url} target="_blank" rel="noopener noreferrer">{doc.title}</a>
+          <Text type="secondary" style={{ marginLeft: 8, fontSize: 12 }}>{doc.note}</Text>
+        </List.Item>
+      )),
+    });
+  }
+
+  if (resource.articles && resource.articles.length > 0) {
+    sections.push({
+      title: '推荐文章',
+      items: resource.articles.map((a, i) => (
+        <List.Item key={i}>
+          <a href={a.url} target="_blank" rel="noopener noreferrer">{a.title}</a>
+          <Text type="secondary" style={{ marginLeft: 8, fontSize: 12 }}>{a.note}</Text>
+        </List.Item>
+      )),
+    });
+  }
+
+  if (resource.books && resource.books.length > 0) {
+    sections.push({
+      title: '推荐书籍',
+      items: resource.books.map((book, i) => (
+        <List.Item key={i}>
+          <span>《{book.title}》{book.author && <Text type="secondary"> · {book.author}</Text>}</span>
+          <Text type="secondary" style={{ marginLeft: 8, fontSize: 12 }}>{book.note}</Text>
+        </List.Item>
+      )),
+    });
+  }
+
+  if (resource.videos && resource.videos.length > 0) {
+    sections.push({
+      title: '推荐视频',
+      items: resource.videos.map((v, i) => (
+        <List.Item key={i}>
+          <a href={v.url} target="_blank" rel="noopener noreferrer">{v.title}</a>
+          <Text type="secondary" style={{ marginLeft: 8, fontSize: 12 }}>{v.note}</Text>
+        </List.Item>
+      )),
+    });
+  }
+
+  if (resource.practice && resource.practice.length > 0) {
+    sections.push({
+      title: '动手练习',
+      items: resource.practice.map((p, i) => (
+        <List.Item key={i}>
+          <div>
+            {p.url ? <a href={p.url} target="_blank" rel="noopener noreferrer">{p.title}</a> : <Text strong>{p.title}</Text>}
+            <div><Text type="secondary" style={{ fontSize: 12 }}>{p.desc}</Text></div>
+          </div>
+        </List.Item>
+      )),
+    });
+  }
+
+  return (
+    <Space direction="vertical" size={16} className="drawer-section">
+      {sections.map((section) => (
+        <Card key={section.title} size="small" title={section.title}>
+          <List size="small" dataSource={section.items} renderItem={(item) => item} />
+        </Card>
+      ))}
+    </Space>
+  );
+}
+
 export function TutorialDrawer({ tutorial, lesson, open, onClose, done, onToggleDone, onPrev, onNext }: {
   tutorial?: Tutorial;
   lesson?: DeepLesson;
@@ -50,6 +129,9 @@ export function TutorialDrawer({ tutorial, lesson, open, onClose, done, onToggle
   onPrev: () => void;
   onNext: () => void;
 }) {
+  const nodeResource = useMemo(() => getNodeResource(tutorial?.id), [tutorial]);
+  const deepTutorial = useMemo(() => getDeepTutorial(tutorial?.id), [tutorial]);
+
   const resources = useMemo(() => {
     if (!tutorial) return categoryResources.general;
     const key = inferCategory(`${tutorial.zh} ${tutorial.en}`);
@@ -85,6 +167,11 @@ export function TutorialDrawer({ tutorial, lesson, open, onClose, done, onToggle
         </Space>
       ),
     },
+    ...(deepTutorial ? [{
+      key: 'deep-learn',
+      label: '深度学',
+      children: <DeepLearningPanel tutorial={deepTutorial} />,
+    }] : []),
     {
       key: 'deep',
       label: '完整说明',
@@ -101,10 +188,16 @@ export function TutorialDrawer({ tutorial, lesson, open, onClose, done, onToggle
     {
       key: 'refs',
       label: '参考资料',
-      children: (
+      children: nodeResource ? (
+        <NodeResourcePanel resource={nodeResource} />
+      ) : (
         <Space direction="vertical" size={16} className="drawer-section">
           <Card size="small" title="推荐链接">
-            <List size="small" dataSource={resources.links} renderItem={(item) => <List.Item>{item}</List.Item>} />
+            <List size="small" dataSource={resources.links} renderItem={(item) => {
+              const urlMatch = item.match(/https?:\/\/\S+/);
+              const label = urlMatch ? item.replace(urlMatch[0], '').replace(/：$/, '') : item;
+              return <List.Item>{urlMatch ? <a href={urlMatch[0]} target="_blank" rel="noopener noreferrer">{label}</a> : item}</List.Item>;
+            }} />
           </Card>
           <Card size="small" title="推荐书籍">
             <List size="small" dataSource={resources.books} renderItem={(item) => <List.Item>{item}</List.Item>} />
@@ -113,8 +206,6 @@ export function TutorialDrawer({ tutorial, lesson, open, onClose, done, onToggle
       ),
     },
   ] : [];
-  const shouldUseFocusedLesson = hasTeachingLesson(tutorial?.id);
-
   return (
     <Drawer
       open={open}
@@ -125,7 +216,7 @@ export function TutorialDrawer({ tutorial, lesson, open, onClose, done, onToggle
       extra={<Button type={done ? 'default' : 'primary'} onClick={onToggleDone}>{done ? '取消学完' : '标记学完'}</Button>}
       styles={{ body: { padding: 20 } }}
     >
-      {tutorial && (shouldUseFocusedLesson && lesson ? <LearningLab tutorial={tutorial} lesson={lesson} /> : <Tabs items={tabItems} />)}
+      {tutorial && <Tabs items={tabItems} />}
       <Flex justify="space-between" className="drawer-nav">
         <Button onClick={onPrev}>上一个</Button>
         <Button onClick={onNext}>下一个</Button>

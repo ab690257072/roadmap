@@ -1,8 +1,10 @@
 import type { TeachingLesson } from '../teaching-types';
 import { SQL_TEACHING_HANDCRAFTED } from './teaching-handcrafted';
+import { SQL_TEACHING_GOLD } from './teaching-gold';
 
 export const SQL_TEACHING_LESSONS: Record<string, TeachingLesson> = {
   ...SQL_TEACHING_HANDCRAFTED,
+  ...SQL_TEACHING_GOLD,
 };
 
 export function hasSqlTeachingLesson(id: string): boolean {
